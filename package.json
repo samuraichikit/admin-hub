@@ -11,16 +11,16 @@
   },
   "dependencies": {
     "next": "14.2.26",
-    "react": "^18",
-    "react-dom": "^18"
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
   },
   "devDependencies": {
     "@it-incubator/eslint-config": "^1.0.4",
     "@it-incubator/prettier-config": "^0.1.2",
     "@it-incubator/stylelint-config": "^2.0.0",
     "@types/node": "^20",
-    "@types/react": "^18",
-    "@types/react-dom": "^18",
+    "@types/react": "^18.3.20",
+    "@types/react-dom": "^18.3.5",
     "eslint": "^8.57.1",
     "eslint-config-next": "14.2.26",
     "sass": "^1.86.0",
