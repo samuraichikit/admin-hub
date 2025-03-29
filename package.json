@@ -11,6 +11,7 @@
     "lint": "eslint src --ext .jsx,.js,.tsx,.ts  --no-error-on-unmatched-pattern --fix && stylelint --fix src/{,*/}*.{scss,css} --allow-empty-input"
   },
   "dependencies": {
+    "@apollo/client": "^3.13.5",
     "next": "14.2.26",
     "react": "^18.3.1",
     "react-dom": "^18.3.1"
