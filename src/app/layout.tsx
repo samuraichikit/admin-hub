@@ -2,8 +2,7 @@ import type { Metadata } from 'next'
 
 import { ReactNode } from 'react'
 
-import { client } from '@/services'
-import { ApolloProvider } from '@apollo/client'
+import { ApolloProviderLayout } from '@/common/providers'
 
 export const metadata: Metadata = {
   title: 'admin-hub',
@@ -16,10 +15,10 @@ export default function RootLayout({
   children: ReactNode
 }>) {
   return (
-    <ApolloProvider client={client}>
-      <html lang={'en'}>
-        <body>{children}</body>
-      </html>
-    </ApolloProvider>
+    <html lang={'en'}>
+      <body>
+        <ApolloProviderLayout>{children}</ApolloProviderLayout>
+      </body>
+    </html>
   )
 }
