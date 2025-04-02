@@ -7,4 +7,7 @@ export const en: Locale = {
     password: 'Password',
     signIn: 'Sign In',
   },
+  schemaErrorMsg: {
+    emailFormat: 'The email must match the format',
+  },
 }

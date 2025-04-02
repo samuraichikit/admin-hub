@@ -5,6 +5,9 @@ export const ru = {
     password: 'Пароль',
     signIn: 'Войти',
   },
+  schemaErrorMsg: {
+    emailFormat: 'Адрес эл.почты должен быть в формате',
+  },
 }
 
 export type Locale = typeof ru
