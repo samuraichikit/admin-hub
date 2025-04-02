@@ -1,3 +1,5 @@
+'use client'
+
 import { useForm } from 'react-hook-form'
 
 import { useTranslation } from '@/common/hooks/useTranslation'
@@ -6,7 +8,7 @@ import { FormTextField } from '@/components/formComponents'
 import { useLoginAdminMutation } from '@/services/authAdminService.generated'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { Button, Card, Typography } from '@samuraichikit/inc-ui-kit'
-import { useRouter } from 'next/router'
+import { useRouter } from 'next/navigation'
 import { z } from 'zod'
 
 import s from './signIn.module.scss'
@@ -37,7 +39,7 @@ export const SignIn = () => {
     const logged = data?.loginAdmin.logged
 
     if (logged) {
-      push('/admin/usersList')
+      push('/usersList')
     } else {
       setError('email', { message: ' ' })
       setError('password', {
