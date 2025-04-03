@@ -4,15 +4,18 @@ import { ReactNode, useEffect, useState } from 'react'
 
 import { usePathname, useRouter } from 'next/navigation'
 
+import { getCurrentLocale } from '../utils'
+
 export function AuthProvider({
   children,
 }: Readonly<{
   children: ReactNode
 }>) {
-  const locale = navigator.language.startsWith('ru') ? 'ru' : 'en'
   const { push } = useRouter()
   const [isAuth, setIsAuth] = useState<boolean | null>(null)
   const pathname = usePathname()
+  const preferredLocale = navigator.language.startsWith('ru') ? 'ru' : 'en'
+  const locale = getCurrentLocale(pathname) ?? preferredLocale
 
   useEffect(() => {
     if (typeof window === 'undefined') {
