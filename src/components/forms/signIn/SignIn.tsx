@@ -4,11 +4,12 @@ import { useForm } from 'react-hook-form'
 
 import { useTranslation } from '@/common/hooks/useTranslation'
 import { signInSchema } from '@/common/schemas'
+import { getCurrentLocale } from '@/common/utils'
 import { FormTextField } from '@/components/formComponents'
 import { useLoginAdminMutation } from '@/services/authAdminService.generated'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { Button, Card, Typography } from '@samuraichikit/inc-ui-kit'
-import { useRouter } from 'next/navigation'
+import { usePathname, useRouter } from 'next/navigation'
 import { z } from 'zod'
 
 import s from './signIn.module.scss'
@@ -21,6 +22,7 @@ export const SignIn = () => {
     textFieldPassword: s.textFieldPassword,
     title: s.title,
   }
+  const pathname = usePathname()
   const { push } = useRouter()
   const { t } = useTranslation()
   const { control, handleSubmit, setError } = useForm<FormValues>({
@@ -34,12 +36,15 @@ export const SignIn = () => {
 
   const [login] = useLoginAdminMutation()
 
+  const locale = getCurrentLocale(pathname)
+
   const submitHandler = async ({ email, password }: FormValues) => {
     const { data } = await login({ variables: { email, password } })
     const logged = data?.loginAdmin.logged
 
     if (logged) {
-      push('/usersList')
+      localStorage.setItem('isLogged', `${logged}`)
+      push(`/${locale}/usersList`)
     } else {
       setError('email', { message: ' ' })
       setError('password', {

@@ -2,7 +2,7 @@ import type { Metadata } from 'next'
 
 import { ReactNode } from 'react'
 
-import { ApolloProviderLayout } from '@/common/providers'
+import { ApolloProviderLayout, AuthProvider } from '@/common/providers'
 
 import '@samuraichikit/inc-ui-kit/dist/index.css'
 
@@ -19,7 +19,9 @@ export default function RootLayout({
   return (
     <html lang={'en'}>
       <body>
-        <ApolloProviderLayout>{children}</ApolloProviderLayout>
+        <ApolloProviderLayout>
+          <AuthProvider>{children}</AuthProvider>
+        </ApolloProviderLayout>
       </body>
     </html>
   )
