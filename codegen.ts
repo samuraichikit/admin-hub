@@ -1,4 +1,3 @@
-import { GRAPHQL_URI } from '@/common/constants'
 import { CodegenConfig } from '@graphql-codegen/cli'
 
 const config: CodegenConfig = {
@@ -18,7 +17,7 @@ const config: CodegenConfig = {
     'src/services/types.ts': { plugins: ['typescript'] },
   },
   ignoreNoDocuments: true,
-  schema: GRAPHQL_URI,
+  schema: 'https://inctagram.work/api/v1/graphql',
 }
 
 export default config
