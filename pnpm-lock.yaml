@@ -15,8 +15,8 @@ importers:
         specifier: ^5.0.1
         version: 5.0.1(react-hook-form@7.55.0(react@18.3.1))
       '@samuraichikit/inc-ui-kit':
-        specifier: ^0.15.0
-        version: 0.15.0(@types/react-dom@18.3.5(@types/react@18.3.20))(@types/react@18.3.20)
+        specifier: ^0.15.2
+        version: 0.15.2(@types/react-dom@18.3.5(@types/react@18.3.20))(@types/react@18.3.20)
       next:
         specifier: 14.2.26
         version: 14.2.26(@babel/core@7.26.10)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(sass@1.86.0)
@@ -1300,8 +1300,8 @@ packages:
   '@rushstack/eslint-patch@1.11.0':
     resolution: {integrity: sha512-zxnHvoMQVqewTJr/W4pKjF0bMGiKJv1WX7bSrkl46Hg0QjESbzBROWK0Wg4RphzSOS5Jiy7eFimmM3UgMrMZbQ==}
 
-  '@samuraichikit/inc-ui-kit@0.15.0':
-    resolution: {integrity: sha512-0O4iAVhMZihUet/geQTA11w2swFgvBVxe3mtb3y3HhApZ42HFeA+PCbzLWnVkgv1ou07hai7rB4D+/13Tjq/7g==}
+  '@samuraichikit/inc-ui-kit@0.15.2':
+    resolution: {integrity: sha512-Zh2y9QnlvHNjkw3/y3oIQ9Fog6TXG1htOMk2fq0JQLv7bXIaR2orHIQuvmmkpI1V5EEB7Bnh0BR9dWOLW0rzCQ==}
 
   '@standard-schema/utils@0.3.0':
     resolution: {integrity: sha512-e7Mew686owMaPJVNNLs55PUvgz371nKgwsc4vxE49zsODpJEnxgxRo2y/OKrqueavXgZNMDVj3DdHFlaSAeU8g==}
@@ -2824,8 +2824,8 @@ packages:
   mdn-data@2.12.2:
     resolution: {integrity: sha512-IEn+pegP1aManZuckezWCO+XZQDplx1366JoVhTpMpBB1sPey/SbveZQUosKiKiGYjg1wH4pMlNgXbCiYgihQA==}
 
-  mdn-data@2.18.0:
-    resolution: {integrity: sha512-gtCy1yim/vpHF/tq3B4Z43x3zKWpYeb4IM3d/Mf4oMYcNuoXOYEaqtoFlLHw9zd7+WNN3jNh6/WXyUrD3OIiwQ==}
+  mdn-data@2.19.0:
+    resolution: {integrity: sha512-vXxcNOxiaUhwoBShl2gd8xOQFeKWLosotfwPeRQsDwtruBSDFAzPPLfg2KMgdK8iz4RUVdswyWMuZwOVojrVZQ==}
 
   meow@13.2.0:
     resolution: {integrity: sha512-pxQJQzB6djGPXh08dacEloMFopsOqGVRKFPYvPOt9XDZ1HasbgDZA74CJGreSU4G3Ak7EFJGoiH2auq+yXISgA==}
@@ -5364,7 +5364,7 @@ snapshots:
 
   '@rushstack/eslint-patch@1.11.0': {}
 
-  '@samuraichikit/inc-ui-kit@0.15.0(@types/react-dom@18.3.5(@types/react@18.3.20))(@types/react@18.3.20)':
+  '@samuraichikit/inc-ui-kit@0.15.2(@types/react-dom@18.3.5(@types/react@18.3.20))(@types/react@18.3.20)':
     dependencies:
       '@fontsource-variable/inter': 5.2.5
       '@radix-ui/react-checkbox': 1.1.4(@types/react-dom@18.3.5(@types/react@18.3.20))(@types/react@18.3.20)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
@@ -7135,7 +7135,7 @@ snapshots:
 
   mdn-data@2.12.2: {}
 
-  mdn-data@2.18.0: {}
+  mdn-data@2.19.0: {}
 
   meow@13.2.0: {}
 
@@ -7870,7 +7870,7 @@ snapshots:
       css-tree: 3.1.0
       is-plain-object: 5.0.0
       known-css-properties: 0.35.0
-      mdn-data: 2.18.0
+      mdn-data: 2.19.0
       postcss-media-query-parser: 0.2.3
       postcss-resolve-nested-selector: 0.1.6
       postcss-selector-parser: 7.1.0
