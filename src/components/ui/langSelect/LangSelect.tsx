@@ -2,6 +2,7 @@
 
 import { ReactNode } from 'react'
 
+import { getCurrentLocale } from '@/common/utils'
 import {
   FlagRussia,
   FlagUnitedKingdom,
@@ -9,7 +10,7 @@ import {
   SelectItem,
   Typography,
 } from '@samuraichikit/inc-ui-kit'
-import { usePathname, useRouter, useSearchParams } from 'next/navigation'
+import { usePathname, useRouter } from 'next/navigation'
 
 import s from './langSelect.module.scss'
 
@@ -28,7 +29,7 @@ export const LangSelect = () => {
   const { push } = useRouter()
   const pathname = usePathname()
 
-  const currentLocale: Locales = pathname.includes('/ru') ? 'ru' : 'en'
+  const currentLocale: Locales = getCurrentLocale(pathname) === 'ru' ? 'ru' : 'en'
 
   const languagesDetails: Record<Locales, LanguageDetails> = {
     en: { language: 'English', Flag: <FlagUnitedKingdom /> },
@@ -39,6 +40,7 @@ export const LangSelect = () => {
     if (currentLocale === newLocale) {
       return
     }
+
     const segments = pathname.split('/')
 
     segments[1] = newLocale
