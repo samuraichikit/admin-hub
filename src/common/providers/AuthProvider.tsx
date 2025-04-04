@@ -4,6 +4,7 @@ import { ReactNode, useEffect, useState } from 'react'
 
 import { usePathname, useRouter } from 'next/navigation'
 
+import { ROUTES } from '../constants'
 import { getCurrentLocale } from '../utils'
 
 export function AuthProvider({
@@ -14,33 +15,23 @@ export function AuthProvider({
   const { push } = useRouter()
   const [isAuth, setIsAuth] = useState<boolean | null>(null)
   const pathname = usePathname()
-  const preferredLocale = navigator.language.startsWith('ru') ? 'ru' : 'en'
-  const locale = getCurrentLocale(pathname) ?? preferredLocale
 
   useEffect(() => {
-    if (typeof window === 'undefined') {
-      return
-    }
-
     const authState = localStorage.getItem('isLogged') === 'true'
+    const locale = getCurrentLocale(pathname)
 
     setIsAuth(authState)
 
-    const routes = {
-      signedIn: `/${locale}/usersList`,
-      signIn: `/${locale}/signIn`,
-    }
-
-    if (pathname === routes.signIn && authState) {
-      push(routes.signedIn)
-    } else if (authState && pathname === '/') {
-      push(routes.signedIn)
+    if (pathname === ROUTES.SIGN_IN(locale) && authState) {
+      push(ROUTES.USERS_LIST(locale))
+    } else if (authState && pathname === ROUTES.HOME) {
+      push(ROUTES.USERS_LIST(locale))
     } else if (!authState) {
-      push(routes.signIn)
+      push(ROUTES.SIGN_IN(locale))
     }
-  }, [locale, push, pathname])
+  }, [push, pathname])
 
-  if (isAuth === null || pathname === '/') {
+  if (isAuth === null || pathname === ROUTES.HOME) {
     return <div>Loading...</div>
   }
 
