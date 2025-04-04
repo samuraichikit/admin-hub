@@ -1,6 +1,8 @@
 export const getCurrentLocale = (pathname: string) => {
-  const segments = pathname.split('/')
-  const locale = segments[1]
+  const preferredLocale = navigator.language.startsWith('ru') ? 'ru' : 'en'
+  const localeFromPath = pathname.split('/')[1]
+  const locale =
+    localeFromPath && ['en', 'ru'].includes(localeFromPath) ? localeFromPath : preferredLocale
 
   return locale
 }

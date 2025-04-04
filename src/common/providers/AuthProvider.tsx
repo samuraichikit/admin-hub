@@ -14,15 +14,10 @@ export function AuthProvider({
   const { push } = useRouter()
   const [isAuth, setIsAuth] = useState<boolean | null>(null)
   const pathname = usePathname()
-  const preferredLocale = navigator.language.startsWith('ru') ? 'ru' : 'en'
-  const locale = getCurrentLocale(pathname) ?? preferredLocale
 
   useEffect(() => {
-    if (typeof window === 'undefined') {
-      return
-    }
-
     const authState = localStorage.getItem('isLogged') === 'true'
+    const locale = getCurrentLocale(pathname)
 
     setIsAuth(authState)
 
@@ -38,7 +33,7 @@ export function AuthProvider({
     } else if (!authState) {
       push(routes.signIn)
     }
-  }, [locale, push, pathname])
+  }, [push, pathname])
 
   if (isAuth === null || pathname === '/') {
     return <div>Loading...</div>
