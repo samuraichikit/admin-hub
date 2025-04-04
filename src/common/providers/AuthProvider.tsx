@@ -4,6 +4,7 @@ import { ReactNode, useEffect, useState } from 'react'
 
 import { usePathname, useRouter } from 'next/navigation'
 
+import { ROUTES } from '../constants'
 import { getCurrentLocale } from '../utils'
 
 export function AuthProvider({
@@ -21,21 +22,16 @@ export function AuthProvider({
 
     setIsAuth(authState)
 
-    const routes = {
-      signedIn: `/${locale}/usersList`,
-      signIn: `/${locale}/signIn`,
-    }
-
-    if (pathname === routes.signIn && authState) {
-      push(routes.signedIn)
-    } else if (authState && pathname === '/') {
-      push(routes.signedIn)
+    if (pathname === ROUTES.SIGN_IN(locale) && authState) {
+      push(ROUTES.USERS_LIST(locale))
+    } else if (authState && pathname === ROUTES.HOME) {
+      push(ROUTES.USERS_LIST(locale))
     } else if (!authState) {
-      push(routes.signIn)
+      push(ROUTES.SIGN_IN(locale))
     }
   }, [push, pathname])
 
-  if (isAuth === null || pathname === '/') {
+  if (isAuth === null || pathname === ROUTES.HOME) {
     return <div>Loading...</div>
   }
 
