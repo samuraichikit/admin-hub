@@ -1,2 +1,3 @@
 export * from './config'
-export * from './validationConstants'
+export * from './validation'
+export * from './locales'

@@ -2,6 +2,8 @@
 
 import { ReactNode } from 'react'
 
+import { LOCALES } from '@/common/constants'
+import { Locales } from '@/common/types'
 import { getCurrentLocale } from '@/common/utils'
 import {
   FlagRussia,
@@ -13,8 +15,6 @@ import {
 import { usePathname, useRouter } from 'next/navigation'
 
 import s from './langSelect.module.scss'
-
-type Locales = 'en' | 'ru'
 
 type LanguageDetails = {
   language: string
@@ -29,7 +29,7 @@ export const LangSelect = () => {
   const { push } = useRouter()
   const pathname = usePathname()
 
-  const currentLocale: Locales = getCurrentLocale(pathname) === 'ru' ? 'ru' : 'en'
+  const currentLocale: Locales = getCurrentLocale(pathname) === LOCALES.RU ? LOCALES.RU : LOCALES.EN
 
   const languagesDetails: Record<Locales, LanguageDetails> = {
     en: { language: 'English', Flag: <FlagUnitedKingdom /> },
