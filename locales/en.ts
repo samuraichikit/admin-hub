@@ -12,5 +12,8 @@ export const en: Locale = {
   },
   userPage: {
     backToUsersList: 'Back to Users List',
+    userAvatar: 'User avatar',
+    userId: 'UserID',
+    profileCreationDate: 'Profile Creation Date',
   },
 }

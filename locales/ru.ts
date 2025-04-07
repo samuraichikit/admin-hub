@@ -10,6 +10,9 @@ export const ru = {
   },
   userPage: {
     backToUsersList: 'Вернуться к списку пользователей',
+    userAvatar: 'Аватар пользователя',
+    userId: 'ID пользователя',
+    profileCreationDate: 'Дата создания профиля',
   },
 }
 
