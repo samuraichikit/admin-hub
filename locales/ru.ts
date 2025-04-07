@@ -8,6 +8,9 @@ export const ru = {
   schemaErrorMsg: {
     emailFormat: 'Адрес эл.почты должен быть в формате',
   },
+  userPage: {
+    backToUsersList: 'Вернуться к списку пользователей',
+  },
 }
 
 export type Locale = typeof ru

@@ -10,4 +10,7 @@ export const en: Locale = {
   schemaErrorMsg: {
     emailFormat: 'The email must match the format',
   },
+  userPage: {
+    backToUsersList: 'Back to Users List',
+  },
 }
