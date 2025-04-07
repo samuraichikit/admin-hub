@@ -15,8 +15,8 @@ importers:
         specifier: ^5.0.1
         version: 5.0.1(react-hook-form@7.55.0(react@18.3.1))
       '@samuraichikit/inc-ui-kit':
-        specifier: ^0.15.2
-        version: 0.15.2(@types/react-dom@18.3.5(@types/react@18.3.20))(@types/react@18.3.20)
+        specifier: ^0.16.0
+        version: 0.16.0(@types/react-dom@18.3.5(@types/react@18.3.20))(@types/react@18.3.20)
       next:
         specifier: 14.2.26
         version: 14.2.26(@babel/core@7.26.10)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(sass@1.86.0)
@@ -1303,8 +1303,8 @@ packages:
   '@rushstack/eslint-patch@1.11.0':
     resolution: {integrity: sha512-zxnHvoMQVqewTJr/W4pKjF0bMGiKJv1WX7bSrkl46Hg0QjESbzBROWK0Wg4RphzSOS5Jiy7eFimmM3UgMrMZbQ==}
 
-  '@samuraichikit/inc-ui-kit@0.15.2':
-    resolution: {integrity: sha512-Zh2y9QnlvHNjkw3/y3oIQ9Fog6TXG1htOMk2fq0JQLv7bXIaR2orHIQuvmmkpI1V5EEB7Bnh0BR9dWOLW0rzCQ==}
+  '@samuraichikit/inc-ui-kit@0.16.0':
+    resolution: {integrity: sha512-H4Jw1TsRjEhzlY1NSsw3oYn/xvDtQjRYdJgdnldXFQbHeRGTBG4myVAQft5CRuDLZn/y58x8b2wmlMOl2DBuNg==}
 
   '@standard-schema/utils@0.3.0':
     resolution: {integrity: sha512-e7Mew686owMaPJVNNLs55PUvgz371nKgwsc4vxE49zsODpJEnxgxRo2y/OKrqueavXgZNMDVj3DdHFlaSAeU8g==}
@@ -5372,7 +5372,7 @@ snapshots:
 
   '@rushstack/eslint-patch@1.11.0': {}
 
-  '@samuraichikit/inc-ui-kit@0.15.2(@types/react-dom@18.3.5(@types/react@18.3.20))(@types/react@18.3.20)':
+  '@samuraichikit/inc-ui-kit@0.16.0(@types/react-dom@18.3.5(@types/react@18.3.20))(@types/react@18.3.20)':
     dependencies:
       '@fontsource-variable/inter': 5.2.5
       '@radix-ui/react-checkbox': 1.1.4(@types/react-dom@18.3.5(@types/react@18.3.20))(@types/react@18.3.20)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
