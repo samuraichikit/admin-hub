@@ -15,6 +15,11 @@ export const en: Locale = {
     userAvatar: 'User avatar',
     userId: 'UserID',
     profileCreationDate: 'Profile Creation Date',
+    amount: 'Amount',
+    dateOfPayment: 'Date of Payment',
+    endDateOfSubscription: 'End date of subscription',
+    paymentType: 'Payment Type',
+    subscriptionType: 'Subscription Type',
   },
   commonTableWithPagination: {
     noData: 'No data',

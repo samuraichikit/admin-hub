@@ -13,6 +13,11 @@ export const ru = {
     userAvatar: 'Аватар пользователя',
     userId: 'ID пользователя',
     profileCreationDate: 'Дата создания профиля',
+    dateOfPayment: 'Дата платежа',
+    endDateOfSubscription: 'Дата окончания подписки',
+    amount: 'Сумма',
+    subscriptionType: 'Тип подписки',
+    paymentType: 'Тип оплаты',
   },
   commonTableWithPagination: {
     noData: 'Данных нет',
