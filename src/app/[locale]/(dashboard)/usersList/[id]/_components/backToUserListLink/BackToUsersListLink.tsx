@@ -1,6 +1,6 @@
 'use client'
 
-import { useTranslation } from '@/common/hooks/useTranslation'
+import { useTranslation } from '@/common/hooks'
 import { Typography, ArrowLeftIcon } from '@samuraichikit/inc-ui-kit'
 import Link from 'next/link'
 import { useParams } from 'next/navigation'

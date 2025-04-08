@@ -1,6 +1,6 @@
 'use client'
 
-import { useTranslation } from '@/common/hooks/useTranslation'
+import { useTranslation } from '@/common/hooks'
 import { formatDate } from '@/common/utils'
 import { useGetUserQuery } from '@/services/usersService.generated'
 import { DefaultAvatar, Typography } from '@samuraichikit/inc-ui-kit'

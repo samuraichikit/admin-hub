@@ -3,7 +3,7 @@
 import { useForm } from 'react-hook-form'
 
 import { ROUTES } from '@/common/constants'
-import { useTranslation } from '@/common/hooks/useTranslation'
+import { useTranslation } from '@/common/hooks'
 import { signInSchema } from '@/common/schemas'
 import { getCurrentLocale } from '@/common/utils'
 import { FormTextField } from '@/components/formComponents'
