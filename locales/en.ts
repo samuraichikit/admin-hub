@@ -16,4 +16,9 @@ export const en: Locale = {
     userId: 'UserID',
     profileCreationDate: 'Profile Creation Date',
   },
+  commonTableWithPagination: {
+    noData: 'No data',
+    afterSelectContent: 'on page',
+    beforeSelectContent: 'show',
+  },
 }

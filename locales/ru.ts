@@ -14,6 +14,11 @@ export const ru = {
     userId: 'ID пользователя',
     profileCreationDate: 'Дата создания профиля',
   },
+  commonTableWithPagination: {
+    noData: 'Данных нет',
+    afterSelectContent: 'на странице',
+    beforeSelectContent: 'показать',
+  },
 }
 
 export type Locale = typeof ru
