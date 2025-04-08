@@ -4,11 +4,11 @@ import { useEffect, useRef, useState } from 'react'
 
 import { useElementInView } from '@/common/hooks/useElementInView'
 import { formatDate } from '@/common/utils'
+import { ImagePost } from '@/services/types'
 import {
   useGetPostsByUserLazyQuery,
   useGetPostsByUserQuery,
-} from '@/services/postsService.generated'
-import { ImagePost } from '@/services/types'
+} from '@/services/userService.generated'
 import Image from 'next/image'
 import { useParams } from 'next/navigation'
 

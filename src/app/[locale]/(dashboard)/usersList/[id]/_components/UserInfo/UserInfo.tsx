@@ -2,7 +2,7 @@
 
 import { useTranslation } from '@/common/hooks'
 import { formatDate } from '@/common/utils'
-import { useGetUserQuery } from '@/services/usersService.generated'
+import { useGetUserQuery } from '@/services/userService.generated'
 import { DefaultAvatar, Typography } from '@samuraichikit/inc-ui-kit'
 import Image from 'next/image'
 import Link from 'next/link'
