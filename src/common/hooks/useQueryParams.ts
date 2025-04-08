@@ -14,14 +14,18 @@ export const useQueryParams = () => {
     push(`${pathname}?${urlSearchParams.toString()}`)
   }
 
-  const resetParams = () => {
+  const resetOldQueryParamsAndSetNewQueryParams = (newParams: Record<string, string>) => {
     const urlSearchParams = new URLSearchParams()
+
+    Object.keys(newParams).forEach(key => {
+      urlSearchParams.set(key, newParams[key])
+    })
 
     push(`${pathname}?${urlSearchParams.toString()}`)
   }
 
   return {
-    resetParams,
+    resetOldQueryParamsAndSetNewQueryParams,
     searchParams,
     setQueryParams,
   }

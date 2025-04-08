@@ -1,3 +1,5 @@
+'use client'
+
 import {
   DEFAULT_HEIGHT_COMMON_TABLE_ROW,
   DEFAULT_PAGE_NUMBER,

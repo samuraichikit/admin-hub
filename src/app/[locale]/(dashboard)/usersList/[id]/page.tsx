@@ -1,3 +1,5 @@
-export default function UserPage() {
-  return <>User page</>
+import { UserPage } from './_components'
+
+export default function CurrentUserPage() {
+  return <UserPage />
 }
