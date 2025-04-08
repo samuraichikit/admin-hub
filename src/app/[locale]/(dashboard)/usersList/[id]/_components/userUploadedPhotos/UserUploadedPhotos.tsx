@@ -10,7 +10,7 @@ import {
 } from '@/services/postsService.generated'
 import { ImagePost } from '@/services/types'
 import Image from 'next/image'
-import { useRouter } from 'next/router'
+import { useParams } from 'next/navigation'
 
 import s from './userUploadedPhotos.module.scss'
 
@@ -20,8 +20,9 @@ export const UserUploadedPhotos = () => {
   const classNames = {
     container: s.container,
   }
-  const { query } = useRouter()
-  const userId = Number(query.id)
+  const { id } = useParams()
+  const userId = Number(id)
+
   const [pageNumber, setPageNumber] = useState(1)
   const endCursorPostIdRef = useRef<null | number>(null)
   const { data, loading } = useGetPostsByUserQuery({ variables: { userId } })
