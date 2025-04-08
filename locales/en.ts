@@ -23,6 +23,10 @@ export const en: Locale = {
     profileLink: 'Profile link',
     subscriptionDate: 'Subscription Date',
     userName: 'Username',
+    followers: 'Followers',
+    following: 'Following',
+    payments: 'Payments',
+    uploadedPhotos: 'Uploaded Photos',
   },
   commonTableWithPagination: {
     noData: 'No data',

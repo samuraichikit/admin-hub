@@ -21,6 +21,10 @@ export const ru = {
     userName: 'Имя пользователя',
     profileLink: 'Ссылка на профиль',
     subscriptionDate: 'Дата подписки',
+    uploadedPhotos: 'Загруженные фотографии',
+    payments: 'Платежи',
+    followers: 'Подписчики',
+    following: 'Отслеживаемые',
   },
   commonTableWithPagination: {
     noData: 'Данных нет',
