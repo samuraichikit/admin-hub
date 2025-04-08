@@ -18,6 +18,9 @@ export const ru = {
     amount: 'Сумма',
     subscriptionType: 'Тип подписки',
     paymentType: 'Тип оплаты',
+    userName: 'Имя пользователя',
+    profileLink: 'Ссылка на профиль',
+    subscriptionDate: 'Дата подписки',
   },
   commonTableWithPagination: {
     noData: 'Данных нет',

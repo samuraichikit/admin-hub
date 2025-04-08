@@ -20,6 +20,9 @@ export const en: Locale = {
     endDateOfSubscription: 'End date of subscription',
     paymentType: 'Payment Type',
     subscriptionType: 'Subscription Type',
+    profileLink: 'Profile link',
+    subscriptionDate: 'Subscription Date',
+    userName: 'Username',
   },
   commonTableWithPagination: {
     noData: 'No data',
