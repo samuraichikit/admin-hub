@@ -1,11 +1,13 @@
 import type { Metadata } from 'next'
 
 import { ReactNode } from 'react'
+import { SkeletonTheme } from 'react-loading-skeleton'
 
 import { ApolloProviderLayout, AuthProvider } from '@/common/providers'
 import { Header } from '@/components/ui'
 
 import '@samuraichikit/inc-ui-kit/dist/index.css'
+import 'react-loading-skeleton/dist/skeleton.css'
 
 import s from './layout.module.scss'
 
@@ -26,12 +28,14 @@ export default function RootLayout({
   return (
     <html lang={'en'}>
       <body>
-        <ApolloProviderLayout>
-          <AuthProvider>
-            <Header />
-            <main className={classNames.main}>{children}</main>
-          </AuthProvider>
-        </ApolloProviderLayout>
+        <SkeletonTheme baseColor={'#0d0d0d'} highlightColor={'#333'}>
+          <ApolloProviderLayout>
+            <AuthProvider>
+              <Header />
+              <main className={classNames.main}>{children}</main>
+            </AuthProvider>
+          </ApolloProviderLayout>
+        </SkeletonTheme>
       </body>
     </html>
   )

@@ -10,6 +10,8 @@ import { useParams } from 'next/navigation'
 
 import s from './userInfo.module.scss'
 
+import { UserInfoSkeleton } from './UserInfoSkeleton'
+
 export const UserInfo = () => {
   const classNames = {
     accountInfoContainer: s.accountInfoContainer,
@@ -24,10 +26,14 @@ export const UserInfo = () => {
   }
   const { id } = useParams()
   const userId = Number(id)
-  const { data } = useGetUserQuery({
+  const { data, loading } = useGetUserQuery({
     variables: { userId },
   })
   const { t } = useTranslation()
+
+  if (loading) {
+    return <UserInfoSkeleton />
+  }
 
   if (!data?.getUser.profile) {
     return null

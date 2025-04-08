@@ -31,9 +31,5 @@ export function AuthProvider({
     }
   }, [push, pathname])
 
-  if (isAuth === null || pathname === ROUTES.HOME) {
-    return <div>Loading...</div>
-  }
-
   return <>{children}</>
 }

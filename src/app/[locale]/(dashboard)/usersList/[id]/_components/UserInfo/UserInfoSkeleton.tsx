@@ -4,7 +4,7 @@ import Skeleton from 'react-loading-skeleton'
 
 import s from './userInfo.module.scss'
 
-export const AdminUserInfoSkeleton = () => {
+export const UserInfoSkeleton = () => {
   const classNames = {
     accountInfoContainer: s.accountInfoContainer,
     adminUserInfoContainer: s.adminUserInfoContainer,
