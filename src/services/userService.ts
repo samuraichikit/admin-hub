@@ -49,3 +49,20 @@ export const GET_PAYMENTS_BY_USER = gql(`
     } 
   }
 `)
+
+export const GET_FOLLOWERS = gql(`
+  query GetFollowers($userId: Int!, $pageSize: Int, $pageNumber: Int, $sortBy: String, $sortDirection: SortDirection) {
+    getFollowers(userId: $userId, pageNumber: $pageNumber, pageSize: $pageSize, sortBy: $sortBy, sortDirection: $sortDirection) {
+      pagesCount,
+      page,
+      totalCount,
+      pageSize,
+      items {
+        id,
+        userId,
+        userName,
+        createdAt,
+      }
+      }
+    } 
+`)
