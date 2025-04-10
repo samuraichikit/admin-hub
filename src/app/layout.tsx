@@ -5,6 +5,7 @@ import { SkeletonTheme } from 'react-loading-skeleton'
 
 import { ApolloProviderLayout, AuthProvider } from '@/common/providers'
 import { Header } from '@/components/ui'
+import { ScrollArea } from '@samuraichikit/inc-ui-kit'
 
 import '@samuraichikit/inc-ui-kit/dist/index.css'
 import 'react-loading-skeleton/dist/skeleton.css'
@@ -23,6 +24,7 @@ export default function RootLayout({
 }>) {
   const classNames = {
     main: s.main,
+    scrollArea: s.scrollArea,
   }
 
   return (
@@ -32,7 +34,9 @@ export default function RootLayout({
           <ApolloProviderLayout>
             <AuthProvider>
               <Header />
-              <main className={classNames.main}>{children}</main>
+              <ScrollArea className={classNames.scrollArea}>
+                <main className={classNames.main}>{children}</main>
+              </ScrollArea>
             </AuthProvider>
           </ApolloProviderLayout>
         </SkeletonTheme>
