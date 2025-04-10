@@ -1,5 +1,7 @@
 'use client'
 
+import { Suspense } from 'react'
+
 import { Typography } from '@samuraichikit/inc-ui-kit'
 
 import s from './header.module.scss'
@@ -21,7 +23,9 @@ export const Header = () => {
           <Typography variant={'small_text'}>Super</Typography>
           <Typography variant={'semi-bold_small_text'}>Admin</Typography>
         </div>
-        <LangSelect />
+        <Suspense fallback={<div>Loading...</div>}>
+          <LangSelect />
+        </Suspense>
       </div>
     </header>
   )
