@@ -6,5 +6,5 @@ export const getBaseUrl = () => {
     return process.env.NEXT_PUBLIC_PRODUCTION_URL
   }
 
-  return process.env.NEXT_PUBLIC_BASE_URL
+  return process.env.NEXT_PUBLIC_LOCAL_URL
 }
