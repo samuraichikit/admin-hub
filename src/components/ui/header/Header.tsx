@@ -1,3 +1,5 @@
+'use client'
+
 import { Typography } from '@samuraichikit/inc-ui-kit'
 
 import s from './header.module.scss'
