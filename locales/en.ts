@@ -10,4 +10,27 @@ export const en: Locale = {
   schemaErrorMsg: {
     emailFormat: 'The email must match the format',
   },
+  userPage: {
+    backToUsersList: 'Back to Users List',
+    userAvatar: 'User avatar',
+    userId: 'UserID',
+    profileCreationDate: 'Profile Creation Date',
+    amount: 'Amount',
+    dateOfPayment: 'Date of Payment',
+    endDateOfSubscription: 'End date of subscription',
+    paymentType: 'Payment Type',
+    subscriptionType: 'Subscription Type',
+    profileLink: 'Profile link',
+    subscriptionDate: 'Subscription Date',
+    userName: 'Username',
+    followers: 'Followers',
+    following: 'Following',
+    payments: 'Payments',
+    uploadedPhotos: 'Uploaded Photos',
+  },
+  commonTableWithPagination: {
+    noData: 'No data',
+    afterSelectContent: 'on page',
+    beforeSelectContent: 'show',
+  },
 }
