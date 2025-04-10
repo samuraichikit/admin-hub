@@ -12,7 +12,7 @@ import {
   SelectItem,
   Typography,
 } from '@samuraichikit/inc-ui-kit'
-import { usePathname, useRouter } from 'next/navigation'
+import { usePathname, useRouter, useSearchParams } from 'next/navigation'
 
 import s from './langSelect.module.scss'
 
@@ -26,8 +26,9 @@ export const LangSelect = () => {
     selectItem: s.selectItem,
   }
 
-  const { push } = useRouter()
+  const { replace } = useRouter()
   const pathname = usePathname()
+  const searchParams = useSearchParams()
 
   const currentLocale: Locales = getCurrentLocale(pathname) === LOCALES.RU ? LOCALES.RU : LOCALES.EN
 
@@ -45,8 +46,9 @@ export const LangSelect = () => {
 
     segments[1] = newLocale
     const newPathname = segments.join('/')
+    const newSearchParams = new URLSearchParams(searchParams.toString())
 
-    push(newPathname)
+    replace(`${newPathname}?${newSearchParams}`)
   }
 
   return (
