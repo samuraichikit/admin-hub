@@ -9,6 +9,7 @@ import { ScrollArea } from '@samuraichikit/inc-ui-kit'
 
 import '@samuraichikit/inc-ui-kit/dist/index.css'
 import 'react-loading-skeleton/dist/skeleton.css'
+import '@/styles/index.scss'
 
 import s from './layout.module.scss'
 

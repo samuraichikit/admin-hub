@@ -5,7 +5,7 @@
   right: 0;
   left: 0;
 
-  height: 60px;
+  height: var(--header-height);
   border-bottom: 1px solid var(--color-dark-300);
 
   background-color: var(--color-dark-700);
