@@ -7,6 +7,18 @@ on:
       - dev
 
 jobs:
+  check-branch:
+    name: Check PR source branch
+    if: github.base_ref == 'main'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Fail if PR is not from dev
+        run: |
+          if [[ "${{ github.head_ref }}" != "dev" ]]; then
+            echo "Error: Pull requests to main can only come from dev."
+            exit 1
+          fi
+
   lint:
     name: Run Lint, Prettier, Stylelint
     runs-on: ubuntu-latest
