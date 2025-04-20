@@ -31,6 +31,32 @@ export const ru = {
     afterSelectContent: 'на странице',
     beforeSelectContent: 'показать',
   },
+  usersListAdmin: {
+    dateAdded: 'Дата добавления',
+    notSpecified: 'Не указано',
+    profileLink: 'Ссылка на профиль',
+    selectBlocked: 'Заблокировано',
+    selectNoSelected: 'Не выбрано',
+    userId: 'ID пользователя',
+    userName: 'Имя пользователя',
+  },
+  actionMenuAdmin: {
+    banInSystem: 'Бан в системе',
+    deleteUser: 'Удалить аккаунт',
+    moreInformation: 'Подробнее',
+  },
+  pagination: {
+    show: 'Показать',
+    onPage: 'на странице',
+  },
+  removeUserAdmin: {
+    questionModal: 'Вы уверены, что хотите удалить',
+    titleModal: 'Удалить пользователся',
+  },
+  sideBar: {
+    confirmButton: 'Да',
+    rejectButton: 'Нет',
+  },
 }
 
 export type Locale = typeof ru
