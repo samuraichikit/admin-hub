@@ -1,0 +1,137 @@
+'use client'
+import { ChangeEvent, useState } from 'react'
+
+import { ActionsMenu } from '@/app/[locale]/(dashboard)/usersList/[id]/_components/usersList/actionMenu'
+import { useTranslation } from '@/common/hooks/useTranslation'
+import { SortDirection } from '@/services/types'
+import { GET_USERS } from '@/services/usersPaginationService'
+import { GetUsersQuery } from '@/services/usersPaginationService.generated'
+import { useQuery } from '@apollo/client'
+import {
+  Filter,
+  FilterActive,
+  Pagination,
+  Select,
+  SelectItem,
+  Table,
+  TableBody,
+  TableBodyCell,
+  TableHead,
+  TableHeadCell,
+  TableRow,
+  TextField,
+} from '@samuraichikit/inc-ui-kit'
+
+import s from './usersList.module.scss'
+
+type SortByType = 'createdAt' | 'userName'
+
+export const UserList = () => {
+  const [sortBy, setSortBy] = useState<SortByType>('createdAt')
+  const [sortDirection, setSortDirection] = useState<SortDirection>(SortDirection.Desc)
+  const [page, setPage] = useState(1)
+  const [pageSize, setPageSize] = useState(8)
+  const [searchTerm, setSearchTerm] = useState<string>('')
+  const { t } = useTranslation()
+  const { data, error, loading } = useQuery<GetUsersQuery>(GET_USERS, {
+    variables: {
+      pageNumber: page,
+      pageSize: pageSize,
+      searchTerm: searchTerm,
+      sortBy: sortBy,
+      sortDirection: sortDirection,
+    },
+  })
+  const options = [5, 8, 10, 15, 20]
+  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setSearchTerm(e.target.value.toLowerCase())
+  }
+
+  const handleDirectionChange = (sortParams: {
+    newDirection: SortDirection
+    newSortBy: SortByType
+  }) => {
+    setSortBy(sortParams.newSortBy)
+    setSortDirection(sortParams.newDirection)
+  }
+
+  const sortUsers = (newSortBy: SortByType) => {
+    const newDirection =
+      sortDirection === SortDirection.Asc ? SortDirection.Desc : SortDirection.Asc
+
+    handleDirectionChange({ newDirection, newSortBy })
+  }
+
+  return (
+    <div className={s.wholeList}>
+      <div className={s.searchSelect}>
+        <TextField onChange={handleChange} style={{ width: '644px' }} type={'search'} />
+        <Select className={s.selectWidth} placeholder={t.usersListAdmin.selectNoSelected}>
+          <SelectItem value={t.usersListAdmin.selectBlocked}>
+            {t.usersListAdmin.selectBlocked}
+          </SelectItem>
+          <SelectItem value={t.usersListAdmin.selectNoSelected}>
+            {t.usersListAdmin.selectNoSelected}
+          </SelectItem>
+        </Select>
+      </div>
+      <div className={s.list}>
+        <Table>
+          <TableHead>
+            <TableRow>
+              <TableHeadCell>{t.usersListAdmin.userId}</TableHeadCell>
+              <TableHeadCell onClick={() => sortUsers('userName')}>
+                {t.usersListAdmin.userName}
+                {SortDirection.Asc && sortBy === 'userName' ? (
+                  <FilterActive className={s.gap} />
+                ) : (
+                  <Filter className={s.gap} />
+                )}
+              </TableHeadCell>
+              <TableHeadCell>{t.usersListAdmin.profileLink}</TableHeadCell>
+              <TableHeadCell onClick={() => sortUsers('createdAt')}>
+                {t.usersListAdmin.dateAdded}
+                {SortDirection.Asc && sortBy === 'createdAt' ? (
+                  <FilterActive className={s.gap} />
+                ) : (
+                  <Filter className={s.gap} />
+                )}
+              </TableHeadCell>
+              <TableHeadCell></TableHeadCell>
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {data?.getUsers.users.map(el => {
+              return (
+                <TableRow key={el.id}>
+                  <TableBodyCell>{el.id}</TableBodyCell>
+                  <TableBodyCell>{`${el.profile.firstName || t.usersListAdmin.notSpecified} 
+                  ${el.profile.lastName || ''}`}</TableBodyCell>
+                  <TableBodyCell>{el.userName}</TableBodyCell>
+                  <TableBodyCell>
+                    {new Date(el.createdAt).toLocaleDateString('ru-RU')}
+                  </TableBodyCell>
+                  <TableBodyCell className={s.actionMenu}>
+                    <ActionsMenu userId={el.id} userName={el.userName} />
+                  </TableBodyCell>
+                </TableRow>
+              )
+            })}
+          </TableBody>
+        </Table>
+      </div>
+      <div className={s.pagination}>
+        <Pagination
+          currentPage={page}
+          onPageChange={setPage}
+          onPageSizeChange={setPageSize}
+          pageSize={pageSize}
+          totalCount={100}
+          perPageOptions={options}
+          beforeSelectContent={t.pagination.show}
+          afterSelectContent={t.pagination.onPage}
+        />
+      </div>
+    </div>
+  )
+}

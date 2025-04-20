@@ -33,4 +33,30 @@ export const en: Locale = {
     afterSelectContent: 'on page',
     beforeSelectContent: 'show',
   },
+  usersListAdmin: {
+    dateAdded: 'Date added',
+    notSpecified: 'Not specified',
+    profileLink: 'Profile link',
+    selectBlocked: 'Blocked',
+    selectNoSelected: 'Not selected',
+    userId: 'User ID',
+    userName: 'Username',
+  },
+  pagination: {
+    show: 'Show',
+    onPage: 'on page',
+  },
+  actionMenuAdmin: {
+    banInSystem: 'Ban in the system',
+    deleteUser: 'Delete user',
+    moreInformation: 'More Information',
+  },
+  removeUserAdmin: {
+    questionModal: 'Are you sure you want to delete',
+    titleModal: 'Delete user',
+  },
+  sideBar: {
+    confirmButton: 'Yes',
+    rejectButton: 'No',
+  },
 }
