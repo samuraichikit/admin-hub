@@ -21,6 +21,7 @@ import {
   TableRow,
   TextField,
 } from '@samuraichikit/inc-ui-kit'
+import clsx from 'clsx'
 
 import s from './usersList.module.scss'
 
@@ -83,7 +84,13 @@ export const UserList = () => {
               <TableHeadCell onClick={() => sortUsers('userName')}>
                 {t.usersListAdmin.userName}
                 {SortDirection.Asc && sortBy === 'userName' ? (
-                  <FilterActive className={s.gap} />
+                  <FilterActive
+                    className={clsx(
+                      sortDirection === SortDirection.Desc &&
+                        sortBy === 'userName' &&
+                        s.activeSortIcon
+                    )}
+                  />
                 ) : (
                   <Filter className={s.gap} />
                 )}
@@ -92,7 +99,13 @@ export const UserList = () => {
               <TableHeadCell onClick={() => sortUsers('createdAt')}>
                 {t.usersListAdmin.dateAdded}
                 {SortDirection.Asc && sortBy === 'createdAt' ? (
-                  <FilterActive className={s.gap} />
+                  <FilterActive
+                    className={clsx(
+                      sortDirection === SortDirection.Desc &&
+                        sortBy === 'createdAt' &&
+                        s.activeSortIcon
+                    )}
+                  />
                 ) : (
                   <Filter className={s.gap} />
                 )}
