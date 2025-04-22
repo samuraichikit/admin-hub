@@ -1,5 +1,5 @@
 # Базовый образ с pnpm
-FROM node:20.11-alpine as base
+FROM node:22.13.0-alpine as base
 RUN npm install -g pnpm@9.15.3
 
 #Устанавливаем зависимости
