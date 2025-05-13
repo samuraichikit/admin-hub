@@ -79,7 +79,7 @@ export const CommonTable = <T,>({
       <TableHead>
         <TableRow>
           {columns.map(column => {
-            const { accessor, isLink, sortable, title } = column
+            const { accessor, sortable, title } = column
 
             if (sortable) {
               return (
