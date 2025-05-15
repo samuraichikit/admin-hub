@@ -22,6 +22,7 @@ export type Column<T> =
   | {
       accessor: keyof T
       href: (row: T) => string
+      Cell?: (row: T) => ReactNode
       isLink?: true
       sortable?: boolean
       title: ReactNode
@@ -31,9 +32,10 @@ export type Column<T> =
       isLink?: false
       sortable?: boolean
       title: ReactNode
+      Cell?: (row: T) => ReactNode
     }
 
-type Row<T> = { id: Key } & T
+type Row<T> = { id?: Key | null } & T
 type TableBodyData<T> = Row<T>[]
 
 export type CommonTableProps<T> = {
@@ -109,14 +111,15 @@ export const CommonTable = <T,>({
           return (
             <TableRow key={row.id}>
               {columns.map(column => {
-                const { accessor, isLink } = column
+                const { accessor, isLink, Cell } = column
                 const cellValue = row[accessor as keyof typeof row]
                 const formattedValue = formatCellValue(cellValue)
                 const href = isLink && column.href ? column.href(row) : undefined
 
                 return (
                   <TableBodyCell key={String(column.accessor)}>
-                    {column.isLink && href ? (
+                    {Cell && Cell(row)}
+                    {!Cell && column.isLink && href ? (
                       <Typography asChild className={classNames.link} variant={'regular_link'}>
                         <Link href={href}>{formattedValue as ReactNode}</Link>
                       </Typography>
