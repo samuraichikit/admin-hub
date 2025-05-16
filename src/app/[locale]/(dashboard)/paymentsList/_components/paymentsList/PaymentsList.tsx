@@ -3,8 +3,8 @@
 import { Column, CommonTableWithPagination } from '@/components/ui'
 import { useGetPaymentsQuery } from '@/services/paymentsService.generated'
 import { SubscriptionPaymentsModel } from '@/services/types'
-import { DefaultAvatar } from '@samuraichikit/inc-ui-kit'
-import Image from 'next/image'
+
+import { Avatar } from '../avatar'
 
 export const PaymentsList = () => {
   const columns: Column<SubscriptionPaymentsModel>[] = [
@@ -12,17 +12,10 @@ export const PaymentsList = () => {
       accessor: 'userName',
       sortable: true,
       title: 'Username',
-      Cell: row => (
-        <div>
-          {row.avatars?.[0] ? (
-            <Image src={row.avatars[0] as string} alt={'avatar'} />
-          ) : (
-            <DefaultAvatar />
-          )}
-        </div>
-      ),
+      Cell: row => <Avatar src={row.avatars?.[0]?.url ?? ''} />,
     },
     { accessor: 'createdAt', title: 'Date added' },
+
     { accessor: 'amount', title: `Amount, $`, Cell: row => row.currency },
     { accessor: 'type', title: 'Subscription' },
     { accessor: 'paymentMethod', sortable: true, title: 'Payment Method' },

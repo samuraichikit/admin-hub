@@ -119,13 +119,14 @@ export const CommonTable = <T,>({
                 return (
                   <TableBodyCell key={String(column.accessor)}>
                     {Cell && Cell(row)}
-                    {!Cell && column.isLink && href ? (
-                      <Typography asChild className={classNames.link} variant={'regular_link'}>
-                        <Link href={href}>{formattedValue as ReactNode}</Link>
-                      </Typography>
-                    ) : (
-                      <Typography>{formattedValue as ReactNode}</Typography>
-                    )}
+                    {!Cell &&
+                      (column.isLink && href ? (
+                        <Typography asChild className={classNames.link} variant={'regular_link'}>
+                          <Link href={href}>{formattedValue as ReactNode}</Link>
+                        </Typography>
+                      ) : (
+                        <Typography>{formattedValue as ReactNode}</Typography>
+                      ))}
                   </TableBodyCell>
                 )
               })}
