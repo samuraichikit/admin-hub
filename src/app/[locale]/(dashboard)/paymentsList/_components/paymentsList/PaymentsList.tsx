@@ -4,7 +4,7 @@ import { Column, CommonTableWithPagination } from '@/components/ui'
 import { useGetPaymentsQuery } from '@/services/paymentsService.generated'
 import { SubscriptionPaymentsModel } from '@/services/types'
 
-import { Avatar } from '../avatar'
+import { UserRow } from '../userRow'
 
 export const PaymentsList = () => {
   const columns: Column<SubscriptionPaymentsModel>[] = [
@@ -12,7 +12,7 @@ export const PaymentsList = () => {
       accessor: 'userName',
       sortable: true,
       title: 'Username',
-      Cell: row => <Avatar src={row.avatars?.[0]?.url ?? ''} />,
+      Cell: row => <UserRow src={row.avatars?.[0]?.url ?? ''} userName={row.userName} />,
     },
     { accessor: 'createdAt', title: 'Date added' },
 
