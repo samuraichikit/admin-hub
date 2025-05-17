@@ -1,5 +1,7 @@
 'use client'
 
+import { DEFAULT_PAGE_NUMBER, PAYMENTS_LIST_PAGE_SIZE } from '@/common/constants'
+import { useCommonTablePagination } from '@/common/hooks'
 import { Column, CommonTableWithPagination } from '@/components/ui'
 import { useGetPaymentsQuery } from '@/services/paymentsService.generated'
 import { SubscriptionPaymentsModel } from '@/services/types'
@@ -25,7 +27,13 @@ export const PaymentsList = () => {
     { accessor: 'type', title: 'Subscription' },
     { accessor: 'paymentMethod', sortable: true, title: 'Payment Method' },
   ]
-  const { data } = useGetPaymentsQuery({ variables: { pageNumber: 1, pageSize: 6 } })
+  const { handleChangeCurrentPage, handlePageSizeChange, pageNumber, pageSize } =
+    useCommonTablePagination({
+      defaultPageNumber: DEFAULT_PAGE_NUMBER,
+      defaultPageSize: PAYMENTS_LIST_PAGE_SIZE,
+    })
+  const { data } = useGetPaymentsQuery({ variables: { pageNumber, pageSize } })
+
   const paymentsData = data?.getPayments.items ?? []
   const perPageOptions = [6, 10, 20, 50, 100]
 
@@ -33,12 +41,12 @@ export const PaymentsList = () => {
     <>
       <CommonTableWithPagination
         columns={columns}
-        currentPage={1}
-        onPageChange={() => {}}
+        currentPage={pageNumber}
+        onPageChange={handleChangeCurrentPage}
         tableBodyData={paymentsData}
         totalCount={100}
-        pageSize={6}
-        onPageSizeChange={() => {}}
+        pageSize={pageSize}
+        onPageSizeChange={handlePageSizeChange}
         showPerPageSelect
         perPageOptions={perPageOptions}
       />
