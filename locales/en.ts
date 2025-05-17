@@ -59,4 +59,12 @@ export const en: Locale = {
     confirmButton: 'Yes',
     rejectButton: 'No',
   },
+  paymentsList: {
+    amount: 'Amount',
+    dateAdded: 'Date added',
+    paymentMethod: 'Payment Method',
+    subscription: 'Subscription',
+    userName: 'Username',
+    search: 'Search',
+  },
 }

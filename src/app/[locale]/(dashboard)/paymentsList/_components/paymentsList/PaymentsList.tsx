@@ -3,7 +3,13 @@
 import { ChangeEvent } from 'react'
 
 import { DEFAULT_PAGE_NUMBER, PAYMENTS_LIST_PAGE_SIZE } from '@/common/constants'
-import { useCommonTablePagination, useDebounce, useQueryParams, useSort } from '@/common/hooks'
+import {
+  useCommonTablePagination,
+  useDebounce,
+  useQueryParams,
+  useSort,
+  useTranslation,
+} from '@/common/hooks'
 import { Column, CommonTableWithPagination } from '@/components/ui'
 import { useGetPaymentsQuery } from '@/services/paymentsService.generated'
 import { SortDirection, SubscriptionPaymentsModel } from '@/services/types'
@@ -16,23 +22,24 @@ type PaymentColumn = Column<SubscriptionPaymentsModel>
 type PaymentColumnAccessor = PaymentColumn['accessor']
 
 export const PaymentsList = () => {
+  const { t } = useTranslation()
   const columns: PaymentColumn[] = [
     {
       accessor: 'userName',
       sortable: true,
-      title: 'Username',
+      title: t.paymentsList.userName,
       Cell: row => <UserRow src={row.avatars?.[0]?.url ?? ''} userName={row.userName} />,
     },
-    { accessor: 'createdAt', title: 'Date added', sortable: true },
+    { accessor: 'createdAt', title: t.paymentsList.dateAdded, sortable: true },
 
     {
       accessor: 'amount',
-      title: `Amount, $`,
+      title: `${t.paymentsList.amount}, $`,
       Cell: row => <AmountRow amount={row.amount ?? 0} currency={row.currency ?? ''} />,
       sortable: true,
     },
-    { accessor: 'type', title: 'Subscription' },
-    { accessor: 'paymentMethod', sortable: true, title: 'Payment Method' },
+    { accessor: 'type', title: t.paymentsList.dateAdded },
+    { accessor: 'paymentMethod', sortable: true, title: t.paymentsList.paymentMethod },
   ]
   const { handleChangeCurrentPage, handlePageSizeChange, pageNumber, pageSize } =
     useCommonTablePagination({
@@ -60,7 +67,11 @@ export const PaymentsList = () => {
 
   return (
     <div>
-      <TextField onChange={handleSearchUsername} type={'search'} placeholder={'Search'} />
+      <TextField
+        onChange={handleSearchUsername}
+        type={'search'}
+        placeholder={t.paymentsList.search}
+      />
       <CommonTableWithPagination
         columns={columns}
         currentPage={pageNumber}
