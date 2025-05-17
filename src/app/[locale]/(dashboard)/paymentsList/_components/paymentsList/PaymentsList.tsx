@@ -27,6 +27,7 @@ export const PaymentsList = () => {
   ]
   const { data } = useGetPaymentsQuery({ variables: { pageNumber: 1, pageSize: 6 } })
   const paymentsData = data?.getPayments.items ?? []
+  const perPageOptions = [6, 10, 20, 50, 100]
 
   return (
     <>
@@ -38,6 +39,8 @@ export const PaymentsList = () => {
         totalCount={100}
         pageSize={6}
         onPageSizeChange={() => {}}
+        showPerPageSelect
+        perPageOptions={perPageOptions}
       />
     </>
   )
