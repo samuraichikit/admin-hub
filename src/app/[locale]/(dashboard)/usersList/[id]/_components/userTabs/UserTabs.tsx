@@ -18,7 +18,7 @@ export const AdminUserTabs = () => {
     trigger: s.trigger,
   }
 
-  const { resetOldQueryParamsAndSetNewQueryParams, searchParams, setQueryParams } = useQueryParams()
+  const { resetOldQueryParamsAndSetNewQueryParams, searchParams } = useQueryParams()
   const { t } = useTranslation()
 
   const handleChangeTab = (value: string) => {

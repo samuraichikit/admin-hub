@@ -1,10 +1,13 @@
 'use client'
 
+import { ChangeEvent } from 'react'
+
 import { DEFAULT_PAGE_NUMBER, PAYMENTS_LIST_PAGE_SIZE } from '@/common/constants'
-import { useCommonTablePagination, useSort } from '@/common/hooks'
+import { useCommonTablePagination, useQueryParams, useSort } from '@/common/hooks'
 import { Column, CommonTableWithPagination } from '@/components/ui'
 import { useGetPaymentsQuery } from '@/services/paymentsService.generated'
 import { SortDirection, SubscriptionPaymentsModel } from '@/services/types'
+import { TextField } from '@samuraichikit/inc-ui-kit'
 
 import { AmountRow } from '../amountRow'
 import { UserRow } from '../userRow'
@@ -40,22 +43,31 @@ export const PaymentsList = () => {
     defaultSortBy: 'createdAt',
     defaultSortDirection: SortDirection.Desc,
   })
+  const { searchParams, setQueryParams } = useQueryParams()
+  const searchTerm = searchParams.get('searchTerm')
+  const perPageOptions = [6, 10, 20, 50, 100]
+
   const { data } = useGetPaymentsQuery({
-    variables: { pageNumber, pageSize, sortBy, sortDirection },
+    variables: { pageNumber, pageSize, sortBy, sortDirection, searchTerm },
   })
 
   const paymentsData = data?.getPayments.items ?? []
-  const perPageOptions = [6, 10, 20, 50, 100]
+  const totalCount = data?.getPayments.totalCount ?? 0
+
+  const handleSearchUsername = (e: ChangeEvent<HTMLInputElement>) => {
+    setQueryParams({ searchTerm: e.currentTarget.value })
+  }
 
   return (
-    <>
+    <div>
+      <TextField onChange={handleSearchUsername} type={'search'} placeholder={'Search'} />
       <CommonTableWithPagination
         columns={columns}
         currentPage={pageNumber}
         onPageChange={handleChangeCurrentPage}
         onChangeSort={handleChangeSort}
         tableBodyData={paymentsData}
-        totalCount={100}
+        totalCount={totalCount}
         pageSize={pageSize}
         onPageSizeChange={handlePageSizeChange}
         showPerPageSelect
@@ -63,6 +75,6 @@ export const PaymentsList = () => {
         sortColumn={sortBy}
         sortDirection={sortDirection}
       />
-    </>
+    </div>
   )
 }
