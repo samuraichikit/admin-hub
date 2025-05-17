@@ -3,7 +3,7 @@
 import { ChangeEvent } from 'react'
 
 import { DEFAULT_PAGE_NUMBER, PAYMENTS_LIST_PAGE_SIZE } from '@/common/constants'
-import { useCommonTablePagination, useQueryParams, useSort } from '@/common/hooks'
+import { useCommonTablePagination, useDebounce, useQueryParams, useSort } from '@/common/hooks'
 import { Column, CommonTableWithPagination } from '@/components/ui'
 import { useGetPaymentsQuery } from '@/services/paymentsService.generated'
 import { SortDirection, SubscriptionPaymentsModel } from '@/services/types'
@@ -44,7 +44,7 @@ export const PaymentsList = () => {
     defaultSortDirection: SortDirection.Desc,
   })
   const { searchParams, setQueryParams } = useQueryParams()
-  const searchTerm = searchParams.get('searchTerm')
+  const searchTerm = useDebounce(searchParams.get('searchTerm'))
   const perPageOptions = [6, 10, 20, 50, 100]
 
   const { data } = useGetPaymentsQuery({
