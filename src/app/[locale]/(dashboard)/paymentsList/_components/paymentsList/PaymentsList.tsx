@@ -19,6 +19,7 @@ import s from './paymentsList.module.scss'
 
 import { AmountRow } from '../amountRow'
 import { UserRow } from '../userRow'
+import { PaymentsListSkeleton } from './PaymentsListSkeleton'
 
 type PaymentColumn = Column<SubscriptionPaymentsModel>
 type PaymentColumnAccessor = PaymentColumn['accessor']
@@ -60,7 +61,7 @@ export const PaymentsList = () => {
   const searchTerm = useDebounce(searchParams.get('searchTerm'))
   const perPageOptions = [6, 10, 20, 50, 100]
 
-  const { data } = useGetPaymentsQuery({
+  const { data, loading } = useGetPaymentsQuery({
     variables: { pageNumber, pageSize, sortBy, sortDirection, searchTerm },
   })
 
@@ -69,6 +70,10 @@ export const PaymentsList = () => {
 
   const handleSearchUsername = (e: ChangeEvent<HTMLInputElement>) => {
     setQueryParams({ searchTerm: e.currentTarget.value })
+  }
+
+  if (loading) {
+    return <PaymentsListSkeleton tableRowsCount={pageSize} />
   }
 
   return (
