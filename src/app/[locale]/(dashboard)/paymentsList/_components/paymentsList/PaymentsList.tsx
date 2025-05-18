@@ -15,6 +15,8 @@ import { useGetPaymentsQuery } from '@/services/paymentsService.generated'
 import { SortDirection, SubscriptionPaymentsModel } from '@/services/types'
 import { TextField } from '@samuraichikit/inc-ui-kit'
 
+import s from './paymentsList.module.scss'
+
 import { AmountRow } from '../amountRow'
 import { UserRow } from '../userRow'
 
@@ -22,6 +24,10 @@ type PaymentColumn = Column<SubscriptionPaymentsModel>
 type PaymentColumnAccessor = PaymentColumn['accessor']
 
 export const PaymentsList = () => {
+  const classNames = {
+    container: s.container,
+    textField: s.textField,
+  }
   const { t } = useTranslation()
   const columns: PaymentColumn[] = [
     {
@@ -66,11 +72,12 @@ export const PaymentsList = () => {
   }
 
   return (
-    <div>
+    <div className={classNames.container}>
       <TextField
         onChange={handleSearchUsername}
         type={'search'}
         placeholder={t.paymentsList.search}
+        className={classNames.textField}
       />
       <CommonTableWithPagination
         columns={columns}
