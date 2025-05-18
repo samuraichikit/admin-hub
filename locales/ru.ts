@@ -57,6 +57,14 @@ export const ru = {
     confirmButton: 'Да',
     rejectButton: 'Нет',
   },
+  paymentsList: {
+    userName: 'Имя пользователя',
+    dateAdded: 'Дата добавления',
+    amount: 'Сумма',
+    subscription: 'Подписка',
+    paymentMethod: 'Способ оплаты',
+    search: 'Поиск',
+  },
 }
 
 export type Locale = typeof ru
