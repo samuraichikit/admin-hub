@@ -58,7 +58,8 @@ export const PaymentsList = () => {
     defaultSortDirection: SortDirection.Desc,
   })
   const { searchParams, setQueryParams } = useQueryParams()
-  const searchTerm = useDebounce(searchParams.get('searchTerm'))
+  const rawSearchTerm = searchParams.get('searchTerm') ?? ''
+  const searchTerm = useDebounce(rawSearchTerm)
   const perPageOptions = [6, 10, 20, 50, 100]
 
   const { data, loading } = useGetPaymentsQuery({
@@ -83,6 +84,7 @@ export const PaymentsList = () => {
         type={'search'}
         placeholder={t.paymentsList.search}
         className={classNames.textField}
+        value={rawSearchTerm}
       />
       <CommonTableWithPagination
         columns={columns}
