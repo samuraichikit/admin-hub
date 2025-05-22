@@ -5,28 +5,29 @@ export const useQueryParams = () => {
   const searchParams = useSearchParams()
   const pathname = usePathname()
 
-  const setQueryParams = (params: Record<string, string>) => {
-    const urlSearchParams = new URLSearchParams(searchParams.toString())
+  const setQueryParams = (params: Record<string, string>, replace = false) => {
+    const urlSearchParams = replace
+      ? new URLSearchParams()
+      : new URLSearchParams(searchParams.toString())
 
-    Object.keys(params).forEach(key => {
-      urlSearchParams.set(key, params[key])
+    Object.entries(params).forEach(([key, value]) => {
+      urlSearchParams.set(key, value)
     })
+
     push(`${pathname}?${urlSearchParams.toString()}`)
   }
 
-  const resetOldQueryParamsAndSetNewQueryParams = (newParams: Record<string, string>) => {
-    const urlSearchParams = new URLSearchParams()
+  const removeQueryParams = (keys: string[]) => {
+    const urlSearchParams = new URLSearchParams(searchParams.toString())
 
-    Object.keys(newParams).forEach(key => {
-      urlSearchParams.set(key, newParams[key])
-    })
+    keys.forEach(key => urlSearchParams.delete(key))
 
     push(`${pathname}?${urlSearchParams.toString()}`)
   }
 
   return {
-    resetOldQueryParamsAndSetNewQueryParams,
     searchParams,
     setQueryParams,
+    removeQueryParams,
   }
 }
