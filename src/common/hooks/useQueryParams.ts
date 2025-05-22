@@ -11,7 +11,11 @@ export const useQueryParams = () => {
       : new URLSearchParams(searchParams.toString())
 
     Object.entries(params).forEach(([key, value]) => {
-      urlSearchParams.set(key, value)
+      if (value === '') {
+        urlSearchParams.delete(key)
+      } else {
+        urlSearchParams.set(key, value)
+      }
     })
 
     push(`${pathname}?${urlSearchParams.toString()}`)
