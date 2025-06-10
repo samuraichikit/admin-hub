@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 
 import { RemoveUserModal } from '@/app/[locale]/(dashboard)/usersList/[id]/_components/usersList/actionMenu/removeUserModal/removeUserModal'
 import { useTranslation } from '@/common/hooks/useTranslation'
@@ -15,7 +15,7 @@ type Props = {
 export const ActionsMenu = ({ userId, userName }: Props) => {
   const [editModalOpen, setEditModalOpen] = useState<boolean>(false)
   const [isRemoveUserModalOpen, setIsRemoveUserModalOpen] = useState<boolean>(false)
-
+  const menuRef = useRef<HTMLDivElement>(null)
   const { t } = useTranslation()
 
   const toggleEditModal = () => {
@@ -27,8 +27,22 @@ export const ActionsMenu = ({ userId, userName }: Props) => {
     setEditModalOpen(false)
   }
 
+  useEffect(() => {
+    function handleClickOutside(event: MouseEvent) {
+      if (editModalOpen && menuRef.current && !menuRef.current.contains(event.target as Node)) {
+        setEditModalOpen(false)
+      }
+    }
+
+    document.addEventListener('mousedown', handleClickOutside)
+
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside)
+    }
+  }, [editModalOpen])
+
   return (
-    <div>
+    <div ref={menuRef}>
       <Button className={s.toggle} onClick={toggleEditModal} variant={'icon'}>
         {'...'}
       </Button>
