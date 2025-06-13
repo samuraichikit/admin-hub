@@ -45,6 +45,14 @@ export const ru = {
     deleteUser: 'Удалить аккаунт',
     moreInformation: 'Подробнее',
   },
+  banUserModal: {
+    titleModal: 'Заблокировать пользователя',
+    question: 'Вы уверены, что хотите заблокировать этого пользователя: ',
+    reasonSelect: 'Причина блокировки',
+    badBehavior: 'Плохое поведение',
+    advertisingPlacement: 'Размещение рекламы',
+    anotherReason: 'Другая причина',
+  },
   pagination: {
     show: 'Показать',
     onPage: 'на странице',

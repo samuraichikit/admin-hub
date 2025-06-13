@@ -51,6 +51,14 @@ export const en: Locale = {
     deleteUser: 'Delete user',
     moreInformation: 'More Information',
   },
+  banUserModal: {
+    titleModal: 'Ban user',
+    question: 'Are you sure to ban this user: ',
+    reasonSelect: 'Reason for ban',
+    badBehavior: 'Bad behavior',
+    advertisingPlacement: 'Advertising placement',
+    anotherReason: 'Another reason',
+  },
   removeUserAdmin: {
     questionModal: 'Are you sure you want to delete',
     titleModal: 'Delete user',

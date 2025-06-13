@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 
+import { BanUserModal } from '@/app/[locale]/(dashboard)/usersList/[id]/_components/usersList/actionMenu/banUserModal/banUserModal'
 import { RemoveUserModal } from '@/app/[locale]/(dashboard)/usersList/[id]/_components/usersList/actionMenu/removeUserModal/removeUserModal'
 import { useTranslation } from '@/common/hooks/useTranslation'
 import { BanIcon, Button, MoreIcon, PersonRemoveIcon, Typography } from '@samuraichikit/inc-ui-kit'
@@ -15,6 +16,7 @@ type Props = {
 export const ActionsMenu = ({ userId, userName }: Props) => {
   const [editModalOpen, setEditModalOpen] = useState<boolean>(false)
   const [isRemoveUserModalOpen, setIsRemoveUserModalOpen] = useState<boolean>(false)
+  const [isBanUserModalOpen, setIsBanUserModalOpen] = useState<boolean>(false)
   const menuRef = useRef<HTMLDivElement>(null)
   const { t } = useTranslation()
 
@@ -24,6 +26,11 @@ export const ActionsMenu = ({ userId, userName }: Props) => {
 
   const handleDeleteUser = () => {
     setIsRemoveUserModalOpen(true)
+    setEditModalOpen(false)
+  }
+
+  const handleBanUser = () => {
+    setIsBanUserModalOpen(true)
     setEditModalOpen(false)
   }
 
@@ -52,7 +59,7 @@ export const ActionsMenu = ({ userId, userName }: Props) => {
             <PersonRemoveIcon />{' '}
             <Typography variant={'regular_text_14'}>{t.actionMenuAdmin.deleteUser}</Typography>
           </Button>
-          <Button className={s.btn} variant={'icon'}>
+          <Button className={s.btn} variant={'icon'} onClick={handleBanUser}>
             <BanIcon />{' '}
             <Typography variant={'regular_text_14'}>{t.actionMenuAdmin.banInSystem}</Typography>
           </Button>
@@ -70,6 +77,14 @@ export const ActionsMenu = ({ userId, userName }: Props) => {
         <RemoveUserModal
           closeModal={isShow => setIsRemoveUserModalOpen(isShow)}
           isShow={isRemoveUserModalOpen}
+          userId={userId}
+          userName={userName}
+        />
+      )}
+      {isBanUserModalOpen && (
+        <BanUserModal
+          closeModal={isShow => setIsBanUserModalOpen(isShow)}
+          isShow={isBanUserModalOpen}
           userId={userId}
           userName={userName}
         />
