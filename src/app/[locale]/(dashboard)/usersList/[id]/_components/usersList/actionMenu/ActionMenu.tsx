@@ -1,9 +1,9 @@
 import { useEffect, useRef, useState } from 'react'
 
+import { useUnBunUser } from '@/app/[locale]/(dashboard)/usersList/[id]/_components/unBanUser/useUnBanUser'
 import { BanUserModal } from '@/app/[locale]/(dashboard)/usersList/[id]/_components/usersList/actionMenu/banUserModal/banUserModal'
 import { RemoveUserModal } from '@/app/[locale]/(dashboard)/usersList/[id]/_components/usersList/actionMenu/removeUserModal/removeUserModal'
 import { useTranslation } from '@/common/hooks/useTranslation'
-import { useUnBunUser } from '@/services/useUnBanUser'
 import { GetUsersQuery } from '@/services/usersPaginationService.generated'
 import { BanIcon, Button, MoreIcon, PersonRemoveIcon, Typography } from '@samuraichikit/inc-ui-kit'
 import Link from 'next/link'
