@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from 'react'
 
 import { BanUserModal } from '@/app/[locale]/(dashboard)/usersList/[id]/_components/usersList/actionMenu/banUserModal/banUserModal'
 import { RemoveUserModal } from '@/app/[locale]/(dashboard)/usersList/[id]/_components/usersList/actionMenu/removeUserModal/removeUserModal'
-import { useUnBunUser } from '@/app/[locale]/(dashboard)/usersList/[id]/_components/usersList/actionMenu/unBanUser/UnBanUsers'
+import { UnBanUsers } from '@/app/[locale]/(dashboard)/usersList/[id]/_components/usersList/actionMenu/unBanUser/unBanUsers'
 import { useTranslation } from '@/common/hooks/useTranslation'
 import { GetUsersQuery } from '@/services/usersPaginationService.generated'
 import { BanIcon, Button, MoreIcon, PersonRemoveIcon, Typography } from '@samuraichikit/inc-ui-kit'
@@ -19,7 +19,7 @@ type Props = {
 export const ActionsMenu = ({ userId, userName, userBan }: Props) => {
   const [editModalOpen, setEditModalOpen] = useState<boolean>(false)
   const [isRemoveUserModalOpen, setIsRemoveUserModalOpen] = useState<boolean>(false)
-  const { handleOpenUnBanDialog, renderUnBanUserDialog } = useUnBunUser({
+  const { handleOpenUnBanDialog, renderUnBanUserDialog } = UnBanUsers({
     userId,
     userName,
   })
