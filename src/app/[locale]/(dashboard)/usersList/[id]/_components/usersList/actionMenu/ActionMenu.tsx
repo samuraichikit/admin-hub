@@ -18,10 +18,8 @@ type Props = {
 
 export const ActionsMenu = ({ userId, userName, userBan }: Props) => {
   const [editModalOpen, setEditModalOpen] = useState<boolean>(false)
-  const [showUnban, setShowUnban] = useState<boolean>(false)
   const [isRemoveUserModalOpen, setIsRemoveUserModalOpen] = useState<boolean>(false)
   const { handleOpenUnBanDialog, renderUnBanUserDialog } = useUnBunUser({
-    setShowUnban,
     userId,
     userName,
   })
@@ -71,13 +69,13 @@ export const ActionsMenu = ({ userId, userName, userBan }: Props) => {
           {userBan ? (
             <Button className={s.btn} onClick={handleOpenUnBanDialog} variant={'icon'}>
               <BanIcon />
-              {t.actionMenuAdmin.unBan}
+              {t.actionMenuAdmin.titleUnBan}
             </Button>
           ) : (
             <Button className={s.btn} variant={'icon'} onClick={handleBanUser}>
-            <BanIcon />{' '}
-            <Typography variant={'regular_text_14'}>{t.actionMenuAdmin.banInSystem}</Typography>
-          </Button>
+              <BanIcon />{' '}
+              <Typography variant={'regular_text_14'}>{t.actionMenuAdmin.banInSystem}</Typography>
+            </Button>
           )}
           <Button asChild className={s.btn} variant={'icon'}>
             <Link href={`/admin/usersList/${userId}`} target={'_blank'}>
