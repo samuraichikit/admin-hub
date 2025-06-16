@@ -50,6 +50,8 @@ export const en: Locale = {
     banInSystem: 'Ban in the system',
     deleteUser: 'Delete user',
     moreInformation: 'More Information',
+    titleUnBan: 'Un-Ban user',
+    unBan: 'Are you sure want to un-ban ',
   },
   banUserModal: {
     titleModal: 'Ban user',
