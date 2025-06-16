@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 
+import { useUnBunUser } from '@/app/[locale]/(dashboard)/usersList/[id]/_components/unBanUser/useUnBanUser'
 import { BanUserModal } from '@/app/[locale]/(dashboard)/usersList/[id]/_components/usersList/actionMenu/banUserModal/banUserModal'
 import { RemoveUserModal } from '@/app/[locale]/(dashboard)/usersList/[id]/_components/usersList/actionMenu/removeUserModal/removeUserModal'
 import { useUnBunUser } from '@/app/[locale]/(dashboard)/usersList/[id]/_components/usersList/actionMenu/unBanUser/useUnBanUser'
