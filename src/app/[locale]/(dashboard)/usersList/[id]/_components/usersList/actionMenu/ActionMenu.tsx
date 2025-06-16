@@ -2,20 +2,27 @@ import { useEffect, useRef, useState } from 'react'
 
 import { BanUserModal } from '@/app/[locale]/(dashboard)/usersList/[id]/_components/usersList/actionMenu/banUserModal/banUserModal'
 import { RemoveUserModal } from '@/app/[locale]/(dashboard)/usersList/[id]/_components/usersList/actionMenu/removeUserModal/removeUserModal'
+import { UnBanUsers } from '@/app/[locale]/(dashboard)/usersList/[id]/_components/usersList/actionMenu/unBanUser/unBanUsers'
 import { useTranslation } from '@/common/hooks/useTranslation'
+import { GetUsersQuery } from '@/services/usersPaginationService.generated'
 import { BanIcon, Button, MoreIcon, PersonRemoveIcon, Typography } from '@samuraichikit/inc-ui-kit'
 import Link from 'next/link'
 
 import s from './actionMenu.module.scss'
 
 type Props = {
+  userBan: GetUsersQuery['getUsers']['users'][number]['userBan']
   userId: number
   userName: string
 }
 
-export const ActionsMenu = ({ userId, userName }: Props) => {
+export const ActionsMenu = ({ userId, userName, userBan }: Props) => {
   const [editModalOpen, setEditModalOpen] = useState<boolean>(false)
   const [isRemoveUserModalOpen, setIsRemoveUserModalOpen] = useState<boolean>(false)
+  const { handleOpenUnBanDialog, renderUnBanUserDialog } = UnBanUsers({
+    userId,
+    userName,
+  })
   const [isBanUserModalOpen, setIsBanUserModalOpen] = useState<boolean>(false)
   const menuRef = useRef<HTMLDivElement>(null)
   const { t } = useTranslation()
@@ -59,10 +66,17 @@ export const ActionsMenu = ({ userId, userName }: Props) => {
             <PersonRemoveIcon />{' '}
             <Typography variant={'regular_text_14'}>{t.actionMenuAdmin.deleteUser}</Typography>
           </Button>
-          <Button className={s.btn} variant={'icon'} onClick={handleBanUser}>
-            <BanIcon />{' '}
-            <Typography variant={'regular_text_14'}>{t.actionMenuAdmin.banInSystem}</Typography>
-          </Button>
+          {userBan ? (
+            <Button className={s.btn} onClick={handleOpenUnBanDialog} variant={'icon'}>
+              <BanIcon />
+              <Typography variant={'regular_text_14'}>{t.actionMenuAdmin.titleUnBan}</Typography>
+            </Button>
+          ) : (
+            <Button className={s.btn} variant={'icon'} onClick={handleBanUser}>
+              <BanIcon />{' '}
+              <Typography variant={'regular_text_14'}>{t.actionMenuAdmin.banInSystem}</Typography>
+            </Button>
+          )}
           <Button asChild className={s.btn} variant={'icon'}>
             <Link href={`/admin/usersList/${userId}`} target={'_blank'}>
               <MoreIcon />{' '}
@@ -89,6 +103,7 @@ export const ActionsMenu = ({ userId, userName }: Props) => {
           userName={userName}
         />
       )}
+      {renderUnBanUserDialog()}
     </div>
   )
 }

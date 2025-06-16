@@ -44,6 +44,8 @@ export const ru = {
     banInSystem: 'Бан в системе',
     deleteUser: 'Удалить аккаунт',
     moreInformation: 'Подробнее',
+    titleUnBan: 'Разблокировка пользователя',
+    unBan: 'Вы уверены, что хотите разблокировать ',
   },
   banUserModal: {
     titleModal: 'Заблокировать пользователя',
