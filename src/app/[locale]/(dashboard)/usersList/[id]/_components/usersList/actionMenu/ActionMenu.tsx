@@ -70,6 +70,7 @@ export const ActionsMenu = ({ userId, userName, userBan }: Props) => {
           </Button>
           {userBan ? (
             <Button className={s.btn} onClick={handleOpenUnBanDialog} variant={'icon'}>
+              <BanIcon />
               {t.actionMenuAdmin.unBan}
             </Button>
           ) : (
