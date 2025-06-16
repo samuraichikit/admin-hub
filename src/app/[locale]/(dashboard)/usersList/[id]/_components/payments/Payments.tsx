@@ -5,9 +5,7 @@ import {
   DEFAULT_PAGE_NUMBER,
   DEFAULT_PAGE_SIZE,
 } from '@/common/constants'
-import { useSort } from '@/common/hooks'
-import { useCommonTablePagination } from '@/common/hooks/useCommonTablePagination'
-import { useTranslation } from '@/common/hooks/useTranslation'
+import { useSort, useTranslation, useCommonTablePagination } from '@/common/hooks'
 import {
   Column,
   CommonTableWithPagination,
@@ -52,7 +50,7 @@ export const Payments = () => {
   if (loading) {
     return (
       <CommonTableWithPaginationSkeleton
-        count={DEFAULT_PAGE_SIZE + 1}
+        count={pageSize + 1}
         height={DEFAULT_HEIGHT_COMMON_TABLE_ROW}
       />
     )

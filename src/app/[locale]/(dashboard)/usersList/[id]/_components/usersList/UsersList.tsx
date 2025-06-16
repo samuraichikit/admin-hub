@@ -8,6 +8,7 @@ import { GET_USERS } from '@/services/usersPaginationService'
 import { GetUsersQuery } from '@/services/usersPaginationService.generated'
 import { useQuery } from '@apollo/client'
 import {
+  BanIcon,
   Filter,
   FilterActive,
   Pagination,
@@ -34,7 +35,7 @@ export const UserList = () => {
   const [pageSize, setPageSize] = useState(8)
   const [searchTerm, setSearchTerm] = useState<string>('')
   const { t } = useTranslation()
-  const { data, error, loading } = useQuery<GetUsersQuery>(GET_USERS, {
+  const { data } = useQuery<GetUsersQuery>(GET_USERS, {
     variables: {
       pageNumber: page,
       pageSize: pageSize,
@@ -117,7 +118,12 @@ export const UserList = () => {
             {data?.getUsers.users.map(el => {
               return (
                 <TableRow key={el.id}>
-                  <TableBodyCell>{el.id}</TableBodyCell>
+                  <TableBodyCell>
+                    <div className={s.banIcon}>
+                      <span>{el.userBan ? <BanIcon /> : ''}</span>
+                      <span>{el.id}</span>
+                    </div>
+                  </TableBodyCell>
                   <TableBodyCell>{`${el.profile.firstName || t.usersListAdmin.notSpecified} 
                   ${el.profile.lastName || ''}`}</TableBodyCell>
                   <TableBodyCell>{el.userName}</TableBodyCell>

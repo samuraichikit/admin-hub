@@ -19,6 +19,7 @@ import { UploadedPhotosSkeleton } from './UserUploadedPhotosSkeleton'
 export const UserUploadedPhotos = () => {
   const classNames = {
     container: s.container,
+    imageWrapper: s.imageWrapper,
   }
   const { id } = useParams()
   const userId = Number(id)
@@ -67,19 +68,25 @@ export const UserUploadedPhotos = () => {
     }
   }, [isSetNextPage])
 
+  if (loading) {
+    return <UploadedPhotosSkeleton count={12} />
+  }
+
   return (
     <div className={classNames.container}>
-      {loading && <UploadedPhotosSkeleton count={12} height={228} width={234} />}
       {photos?.map((item, index) => {
         return (
-          <Image
-            alt={`Image uploaded on ${formatDate(item.createdAt)}`}
-            height={228}
+          <div
             key={item.id}
             ref={index === photos.length - 1 ? targetRef : null}
-            src={item.url ?? ''}
-            width={234}
-          />
+            className={classNames.imageWrapper}
+          >
+            <Image
+              alt={`Image uploaded on ${formatDate(item.createdAt)}`}
+              src={item.url ?? ''}
+              fill
+            />
+          </div>
         )
       })}
     </div>

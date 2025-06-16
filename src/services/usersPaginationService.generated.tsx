@@ -55,6 +55,10 @@ export const GetUsersDocument = gql`
           firstName
           lastName
         }
+        userBan {
+          createdAt
+          reason
+        }
       }
     }
   }

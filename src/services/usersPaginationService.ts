@@ -26,9 +26,10 @@ export const GET_USERS = gql(`
           firstName
           lastName
         }
-          userBan {
-              createdAt
-          }
+        userBan {
+          createdAt
+          reason
+        }
       }
     }
   }

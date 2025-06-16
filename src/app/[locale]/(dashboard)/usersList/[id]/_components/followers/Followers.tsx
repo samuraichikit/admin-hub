@@ -46,7 +46,7 @@ export const Followers = () => {
   if (loading || loadingGetFullName) {
     return (
       <CommonTableWithPaginationSkeleton
-        count={DEFAULT_PAGE_SIZE + 1}
+        count={pageSize + 1}
         height={DEFAULT_HEIGHT_COMMON_TABLE_ROW}
       />
     )

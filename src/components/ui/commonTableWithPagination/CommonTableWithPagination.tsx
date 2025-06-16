@@ -18,6 +18,7 @@ export const CommonTableWithPagination = <T,>({
   const classNames = {
     pagination: s.pagination,
     text: s.text,
+    container: s.container,
   }
 
   const { t } = useTranslation()
@@ -33,7 +34,7 @@ export const CommonTableWithPagination = <T,>({
   }
 
   return (
-    <>
+    <div className={classNames.container}>
       <CommonTable
         columns={columns}
         onChangeSort={onChangeSort}
@@ -47,6 +48,6 @@ export const CommonTableWithPagination = <T,>({
         afterSelectContent={t.commonTableWithPagination.afterSelectContent}
         beforeSelectContent={t.commonTableWithPagination.beforeSelectContent}
       />
-    </>
+    </div>
   )
 }

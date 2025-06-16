@@ -47,6 +47,14 @@ export const ru = {
     unBan: 'Вы уверены, что хотите разбанить ',
     titleUnBan: 'Разблокировка пользователя',
   },
+  banUserModal: {
+    titleModal: 'Заблокировать пользователя',
+    question: 'Вы уверены, что хотите заблокировать этого пользователя: ',
+    reasonSelect: 'Причина блокировки',
+    badBehavior: 'Плохое поведение',
+    advertisingPlacement: 'Размещение рекламы',
+    anotherReason: 'Другая причина',
+  },
   pagination: {
     show: 'Показать',
     onPage: 'на странице',
@@ -58,6 +66,14 @@ export const ru = {
   sideBar: {
     confirmButton: 'Да',
     rejectButton: 'Нет',
+  },
+  paymentsList: {
+    userName: 'Имя пользователя',
+    dateAdded: 'Дата добавления',
+    amount: 'Сумма',
+    subscription: 'Подписка',
+    paymentMethod: 'Способ оплаты',
+    search: 'Поиск',
   },
 }
 

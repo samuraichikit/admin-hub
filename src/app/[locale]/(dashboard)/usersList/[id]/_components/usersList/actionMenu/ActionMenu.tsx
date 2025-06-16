@@ -1,5 +1,6 @@
-import { useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 
+import { BanUserModal } from '@/app/[locale]/(dashboard)/usersList/[id]/_components/usersList/actionMenu/banUserModal/banUserModal'
 import { RemoveUserModal } from '@/app/[locale]/(dashboard)/usersList/[id]/_components/usersList/actionMenu/removeUserModal/removeUserModal'
 import { useTranslation } from '@/common/hooks/useTranslation'
 import { useUnBunUser } from '@/components/ui/unblockUsers/useUnBanUser'
@@ -24,7 +25,8 @@ export const ActionsMenu = ({ userId, userName, userBan }: Props) => {
     userId,
     userName,
   })
-
+  const [isBanUserModalOpen, setIsBanUserModalOpen] = useState<boolean>(false)
+  const menuRef = useRef<HTMLDivElement>(null)
   const { t } = useTranslation()
 
   const toggleEditModal = () => {
@@ -36,8 +38,27 @@ export const ActionsMenu = ({ userId, userName, userBan }: Props) => {
     setEditModalOpen(false)
   }
 
+  const handleBanUser = () => {
+    setIsBanUserModalOpen(true)
+    setEditModalOpen(false)
+  }
+
+  useEffect(() => {
+    function handleClickOutside(event: MouseEvent) {
+      if (editModalOpen && menuRef.current && !menuRef.current.contains(event.target as Node)) {
+        setEditModalOpen(false)
+      }
+    }
+
+    document.addEventListener('mousedown', handleClickOutside)
+
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside)
+    }
+  }, [editModalOpen])
+
   return (
-    <div>
+    <div ref={menuRef}>
       <Button className={s.toggle} onClick={toggleEditModal} variant={'icon'}>
         {'...'}
       </Button>
@@ -52,10 +73,10 @@ export const ActionsMenu = ({ userId, userName, userBan }: Props) => {
               {t.actionMenuAdmin.unBan}
             </Button>
           ) : (
-            <Button className={s.btn} variant={'icon'}>
-              <BanIcon />{' '}
-              <Typography variant={'regular_text_14'}>{t.actionMenuAdmin.banInSystem}</Typography>
-            </Button>
+            <Button className={s.btn} variant={'icon'} onClick={handleBanUser}>
+            <BanIcon />{' '}
+            <Typography variant={'regular_text_14'}>{t.actionMenuAdmin.banInSystem}</Typography>
+          </Button>
           )}
           <Button asChild className={s.btn} variant={'icon'}>
             <Link href={`/admin/usersList/${userId}`} target={'_blank'}>
@@ -76,6 +97,14 @@ export const ActionsMenu = ({ userId, userName, userBan }: Props) => {
         />
       )}
       {renderUnBanUserDialog()}
+      {isBanUserModalOpen && (
+        <BanUserModal
+          closeModal={isShow => setIsBanUserModalOpen(isShow)}
+          isShow={isBanUserModalOpen}
+          userId={userId}
+          userName={userName}
+        />
+      )}
     </div>
   )
 }

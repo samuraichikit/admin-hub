@@ -18,11 +18,11 @@ export const AdminUserTabs = () => {
     trigger: s.trigger,
   }
 
-  const { resetOldQueryParamsAndSetNewQueryParams, searchParams, setQueryParams } = useQueryParams()
+  const { setQueryParams, searchParams } = useQueryParams()
   const { t } = useTranslation()
 
   const handleChangeTab = (value: string) => {
-    resetOldQueryParamsAndSetNewQueryParams({ [QUERY_PARAMS.TAB]: value })
+    setQueryParams({ [QUERY_PARAMS.TAB]: value }, true)
   }
 
   const uploadedPhotos = TABS_CONSTANTS.ADMIN_USER_PAGE.UPLOADED_PHOTOS
