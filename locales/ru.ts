@@ -44,6 +44,8 @@ export const ru = {
     banInSystem: 'Бан в системе',
     deleteUser: 'Удалить аккаунт',
     moreInformation: 'Подробнее',
+    unBan: 'Вы уверены, что хотите разбанить ',
+    titleUnBan: 'Разблокировка пользователя',
   },
   pagination: {
     show: 'Показать',

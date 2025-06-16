@@ -24,6 +24,7 @@ export type GetUsersQuery = {
       email: string
       createdAt: any
       profile: { __typename?: 'Profile'; firstName?: string | null; lastName?: string | null }
+      userBan?: { __typename?: 'UserBan'; createdAt: any; reason: string } | null
     }>
   }
 }
