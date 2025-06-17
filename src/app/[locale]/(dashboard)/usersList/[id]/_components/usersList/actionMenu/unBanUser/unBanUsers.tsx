@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { toast } from 'react-toastify'
 
 import { UnBanUserDialog } from '@/app/[locale]/(dashboard)/usersList/[id]/_components/usersList/actionMenu/unBanUser/unBanUserDialog'
 import { useUnbanUserMutation } from '@/services/unBanUserService.generated'
@@ -28,10 +29,10 @@ export const UnBanUsers = ({ userId, userName }: useUnBunUserType) => {
       const res = await unBanUserMutation()
 
       if (res.data?.unbanUser) {
-        alert(`User ${userName} was successfully unBaned`)
+        toast.success(`User ${userName} was successfully unBaned`)
       }
     } catch (e) {
-      alert(`cant do it`)
+      toast.error(`Can do it`)
     } finally {
       setIsUnBanDialogOpen(false)
     }
