@@ -4,12 +4,16 @@ import { ReactNode } from 'react'
 import { SkeletonTheme } from 'react-loading-skeleton'
 
 import { ApolloProviderLayout, AuthProvider } from '@/common/providers'
+import { getCurrentLocale } from '@/common/utils'
 import { Header } from '@/components/ui'
+import { Sidebar } from '@/components/ui/sideBar'
 import { ScrollArea } from '@samuraichikit/inc-ui-kit'
+import Link from 'next/link'
+import { usePathname } from 'next/navigation'
 
+import '@/styles/index.scss'
 import '@samuraichikit/inc-ui-kit/dist/index.css'
 import 'react-loading-skeleton/dist/skeleton.css'
-import '@/styles/index.scss'
 
 import s from './layout.module.scss'
 
@@ -36,7 +40,10 @@ export default function RootLayout({
             <AuthProvider>
               <Header />
               <ScrollArea className={classNames.scrollArea}>
-                <main className={classNames.main}>{children}</main>
+                <div className={s.layoutContainer}>
+                  <Sidebar />
+                  <main className={s.main}>{children}</main>
+                </div>
               </ScrollArea>
             </AuthProvider>
           </ApolloProviderLayout>
