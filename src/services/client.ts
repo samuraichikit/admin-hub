@@ -1,4 +1,4 @@
-import { GRAPHQL_URI } from '@/common/constants'
+import { GRAPHQL_URI, GRAPHQL_WS_URI } from '@/common/constants'
 import { ApolloClient, createHttpLink, InMemoryCache, split } from '@apollo/client'
 import { setContext } from '@apollo/client/link/context'
 import { GraphQLWsLink } from '@apollo/client/link/subscriptions'
@@ -22,7 +22,7 @@ const authLink = setContext((_, { headers }) => {
 
 const wsLink = new GraphQLWsLink(
   createClient({
-    url: GRAPHQL_URI.replace('http', 'ws'),
+    url: GRAPHQL_WS_URI,
     connectionParams: () => {
       const token = localStorage.getItem('token')
 
