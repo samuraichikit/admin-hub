@@ -17,7 +17,7 @@ export const PostsList = () => {
   const [posts, setPosts] = useState<GetPostsQuery['getPosts']['items']>([])
   const [searchTerm, setSearchTerm] = useState<string>('')
   const [isExpanded, setIsExpanded] = useState(false)
-  const { t, dateFnsLocale } = useTranslation()
+  const { dateFnsLocale } = useTranslation()
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     setSearchTerm(e.target.value.toLowerCase())
   }
