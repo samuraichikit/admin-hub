@@ -26,6 +26,9 @@ export const GET_POSTS = gql(`
           userName
           firstName
           lastName
+          avatars {
+            url
+          }
         }
       }
       totalCount

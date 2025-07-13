@@ -30,6 +30,7 @@ export type GetPostsQuery = {
         userName: string
         firstName?: string | null
         lastName?: string | null
+        avatars?: Array<{ __typename?: 'Avatar'; url?: string | null }> | null
       }
     }>
   }
@@ -61,6 +62,9 @@ export const GetPostsDocument = gql`
           userName
           firstName
           lastName
+          avatars {
+            url
+          }
         }
       }
       totalCount

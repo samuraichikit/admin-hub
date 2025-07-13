@@ -1,5 +1,6 @@
 'use client'
 
+import { ru as ruLocale, enUS } from 'date-fns/locale'
 import { usePathname } from 'next/navigation'
 
 import { en } from '../../../locales/en'
@@ -11,6 +12,7 @@ export const useTranslation = () => {
   const locale = getCurrentLocale(pathname)
 
   const t = locale === 'en' ? en : ru
+  const dateFnsLocale = t === ru ? ruLocale : enUS
 
-  return { t }
+  return { t, dateFnsLocale }
 }

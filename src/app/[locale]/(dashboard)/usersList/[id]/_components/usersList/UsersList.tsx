@@ -2,6 +2,7 @@
 import { ChangeEvent, useState } from 'react'
 
 import { ActionsMenu } from '@/app/[locale]/(dashboard)/usersList/[id]/_components/usersList/actionMenu'
+import { SortByType } from '@/common/constants/types'
 import { useTranslation } from '@/common/hooks/useTranslation'
 import { SortDirection } from '@/services/types'
 import { GET_USERS } from '@/services/usersPaginationService'
@@ -26,10 +27,8 @@ import clsx from 'clsx'
 
 import s from './usersList.module.scss'
 
-type SortByType = 'createdAt' | 'userName'
-
 export const UserList = () => {
-  const [sortBy, setSortBy] = useState<SortByType>('createdAt')
+  const [sortBy, setSortBy] = useState<SortByType>(SortByType.CreatedAt)
   const [sortDirection, setSortDirection] = useState<SortDirection>(SortDirection.Desc)
   const [page, setPage] = useState(1)
   const [pageSize, setPageSize] = useState(8)
@@ -82,13 +81,13 @@ export const UserList = () => {
           <TableHead>
             <TableRow>
               <TableHeadCell>{t.usersListAdmin.userId}</TableHeadCell>
-              <TableHeadCell onClick={() => sortUsers('userName')}>
+              <TableHeadCell onClick={() => sortUsers(SortByType.UserName)}>
                 {t.usersListAdmin.userName}
-                {SortDirection.Asc && sortBy === 'userName' ? (
+                {SortDirection.Asc && sortBy === SortByType.UserName ? (
                   <FilterActive
                     className={clsx(
                       sortDirection === SortDirection.Desc &&
-                        sortBy === 'userName' &&
+                        sortBy === SortByType.UserName &&
                         s.activeSortIcon
                     )}
                   />
@@ -97,13 +96,13 @@ export const UserList = () => {
                 )}
               </TableHeadCell>
               <TableHeadCell>{t.usersListAdmin.profileLink}</TableHeadCell>
-              <TableHeadCell onClick={() => sortUsers('createdAt')}>
+              <TableHeadCell onClick={() => sortUsers(SortByType.CreatedAt)}>
                 {t.usersListAdmin.dateAdded}
-                {SortDirection.Asc && sortBy === 'createdAt' ? (
+                {SortDirection.Asc && sortBy === SortByType.CreatedAt ? (
                   <FilterActive
                     className={clsx(
                       sortDirection === SortDirection.Desc &&
-                        sortBy === 'createdAt' &&
+                        sortBy === SortByType.CreatedAt &&
                         s.activeSortIcon
                     )}
                   />
