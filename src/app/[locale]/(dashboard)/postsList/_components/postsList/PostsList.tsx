@@ -82,7 +82,6 @@ export const PostsList = () => {
       />
       <div className={styles.container}>
         {posts.map(post => {
-          const imageUrl = post.images?.[0]?.url ?? ''
           const fullName = `${post.postOwner.firstName ?? ''} ${
             post.postOwner.lastName ?? ''
           }`.trim()
