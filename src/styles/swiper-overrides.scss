@@ -1,0 +1,17 @@
+.swiper-button-prev,
+.swiper-button-next {
+  position: absolute!important;
+  z-index: 10!important;
+}
+.swiper-button-prev::after,
+.swiper-button-next::after {
+  font-size: 20px !important;
+  color: white !important;
+  font-weight: bold !important;
+}
+
+.swiper-slide img {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+}

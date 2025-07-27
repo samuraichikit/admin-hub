@@ -3,6 +3,7 @@ import { ChangeEvent, useEffect, useState } from 'react'
 
 import { SortByType } from '@/common/constants/types'
 import { useTranslation } from '@/common/hooks'
+import { ImagesSlider } from '@/components/ui/imagesSlider/ImagesSlider'
 import { GET_POSTS } from '@/services/postsListService'
 import { GetPostsQuery } from '@/services/postsListService.generated'
 import { POSTS_SUBSCRIPTION } from '@/services/postsSubscriptionService'
@@ -16,7 +17,8 @@ import styles from './postList.module.scss'
 export const PostsList = () => {
   const [posts, setPosts] = useState<GetPostsQuery['getPosts']['items']>([])
   const [searchTerm, setSearchTerm] = useState<string>('')
-  const [isExpanded, setIsExpanded] = useState(false)
+  const [expandedPosts, setExpandedPosts] = useState<{ [postId: number]: boolean }>({})
+  const [debouncedSearchTerm, setDebouncedSearchTerm] = useState('')
   const { dateFnsLocale } = useTranslation()
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     setSearchTerm(e.target.value.toLowerCase())
@@ -27,7 +29,7 @@ export const PostsList = () => {
       endCursorPostId: 0,
       sortBy: SortByType.CreatedAt,
       sortDirection: SortDirection.Desc,
-      searchTerm: searchTerm,
+      searchTerm: debouncedSearchTerm,
     },
     fetchPolicy: 'network-only',
   })
@@ -39,6 +41,16 @@ export const PostsList = () => {
       setPosts(data.getPosts.items)
     }
   }, [data])
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setDebouncedSearchTerm(searchTerm)
+    }, 1000)
+
+    return () => {
+      clearTimeout(timer)
+    }
+  }, [searchTerm])
 
   useEffect(() => {
     if (subscriptionData?.postAdded) {
@@ -53,13 +65,21 @@ export const PostsList = () => {
     return <p>Error loading posts</p>
   }
 
-  const toggleDescription = () => {
-    setIsExpanded(prev => !prev)
+  const toggleDescription = (postId: number) => {
+    setExpandedPosts(prev => ({
+      ...prev,
+      [postId]: !prev[postId],
+    }))
   }
 
   return (
-    <div>
-      <TextField onChange={handleChange} style={{ width: '644px' }} type={'search'} />
+    <div className={styles.root}>
+      <TextField
+        onChange={handleChange}
+        value={searchTerm}
+        style={{ width: '100%' }}
+        type={'search'}
+      />
       <div className={styles.container}>
         {posts.map(post => {
           const imageUrl = post.images?.[0]?.url ?? ''
@@ -68,12 +88,13 @@ export const PostsList = () => {
           }`.trim()
           const displayName = fullName || post.postOwner.userName
           const avatarUrl = post.postOwner.avatars?.[0]?.url
-          const shortText = post.description.slice(0, 100)
+          const shortText = post.description.slice(0, 65)
+          const isExpanded = expandedPosts[post.id] || false
 
           return (
             <div key={post.id} className={styles.card}>
-              <img src={imageUrl} alt={'Post'} className={styles.image} />
-              <div className={styles.content}>
+              <ImagesSlider images={post.images} />
+              <div className={`${styles.content} ${isExpanded ? styles.expandedContent : ''}`}>
                 <div className={styles.profile}>
                   <div className={styles.profileInfo}>
                     <img
@@ -92,19 +113,25 @@ export const PostsList = () => {
                     })}
                   </Typography>
                 </div>
-                <Typography
-                  className={`${styles.text} ${isExpanded ? styles.expanded : ''}`}
-                  variant={'regular_text_14'}
-                >
+                <div className={`${styles.text} ${isExpanded ? styles.expanded : ''}`}>
                   <div className={styles.descriptionWrapper}>
-                    <div className={styles.descriptionText}>
-                      {isExpanded ? post.description : shortText + '...'}
-                    </div>
-                    <span onClick={toggleDescription} className={styles.showMore}>
-                      {isExpanded ? 'Hide' : 'Show more'}
-                    </span>
+                    {post.description.length < 100 ? (
+                      <Typography variant={'regular_text_14'} className={styles.descriptionText}>
+                        {post.description}
+                      </Typography>
+                    ) : (
+                      <Typography variant={'regular_text_14'} className={styles.descriptionText}>
+                        {isExpanded ? post.description : shortText + '...'}
+                        <span
+                          onClick={() => toggleDescription(post.id)}
+                          className={styles.showMore}
+                        >
+                          {isExpanded ? 'Hide' : 'Show more'}
+                        </span>
+                      </Typography>
+                    )}
                   </div>
-                </Typography>
+                </div>
               </div>
             </div>
           )
