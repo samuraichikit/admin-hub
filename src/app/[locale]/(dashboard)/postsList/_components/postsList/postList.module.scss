@@ -6,37 +6,36 @@
 }
 
 .container {
-  width: 75vw;
   display: grid;
+  width: 75vw;
   grid-template-columns: repeat(auto-fill, 234px);
   grid-auto-rows: 391px;
-  gap: 8px;
   justify-content: start;
+  gap: 8px;
 }
 
 .card {
+  position: relative;
   display: flex;
   flex-direction: column;
-  overflow: hidden;
   height: auto;
-  position: relative;
+  overflow: hidden;
 }
 
 .content {
-  padding: 12px 0 0 0;
-  display: flex;
-  flex-direction: column;
-  gap: 2px;
-  flex-grow: 1;
   position: absolute;
   top: 230px;
+  right: 0;
   bottom: 0;
   left: 0;
-  right: 0;
-  background: black;
-  transition: transform 0.3s ease-in-out;
   z-index: 2;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  padding: 12px 0 0 0;
+  background: black;
   transform: translateY(0);
+  transition: transform 0.3s ease-in-out;
 }
 
 .profile {
@@ -65,6 +64,7 @@
 
 .text {
   overflow-wrap: break-word;
+  word-break: break-word;
 }
 
 .showMore {
@@ -72,10 +72,6 @@
   font-size: 13px;
   text-decoration: underline;
   cursor: pointer;
-}
-
-.text {
-  word-break: break-word;
 }
 
 .descriptionWrapper {
@@ -88,8 +84,5 @@
 }
 
 .expandedContent {
-  transform: translateY(-80px); // поднимаем вверх, "накладываясь" на картинку
-}
-
-.expanded {
+  transform: translateY(-80px);
 }
