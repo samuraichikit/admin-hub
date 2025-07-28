@@ -17,13 +17,15 @@
 
 .swiper-button-prev,
 .swiper-button-next {
-  color: #000 !important;
-  top: 50%;
-  width: 10px !important;
-  height: 10px!important;
-  margin-top: -10px;
   position: absolute;
   z-index: 10;
+  top: 50%;
+
+  width: 10px !important;
+  height: 10px !important;
+  margin-top: -10px;
+
+  color: #000 !important;
 }
 
 .swiper-button-prev {
@@ -33,4 +35,3 @@
 .swiper-button-next {
   right: 10px;
 }
-

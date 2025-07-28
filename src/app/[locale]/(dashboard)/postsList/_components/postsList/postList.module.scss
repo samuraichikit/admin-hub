@@ -1,17 +1,17 @@
-.root{
+.root {
   margin-top: 60px;
   display: flex;
   flex-direction: column;
   gap: 20px;
 }
+
 .container {
   width: 75vw;
   display: grid;
-  grid-template-columns: repeat(auto-fill,234px);
+  grid-template-columns: repeat(auto-fill, 234px);
   grid-auto-rows: 391px;
   gap: 8px;
   justify-content: start;
-
 }
 
 .card {
@@ -21,7 +21,6 @@
   height: auto;
   position: relative;
 }
-
 
 .content {
   padding: 12px 0 0 0;
@@ -64,8 +63,8 @@
   color: var(--color-light-900);
 }
 
-.text{
-  overflow-wrap: break-word
+.text {
+  overflow-wrap: break-word;
 }
 
 .showMore {
@@ -74,6 +73,7 @@
   text-decoration: underline;
   cursor: pointer;
 }
+
 .text {
   word-break: break-word;
 }
@@ -86,10 +86,10 @@
   max-height: 72px;
   transition: max-height 0.4s ease;
 }
+
 .expandedContent {
   transform: translateY(-80px); // поднимаем вверх, "накладываясь" на картинку
 }
-.expanded{
 
+.expanded {
 }
-
