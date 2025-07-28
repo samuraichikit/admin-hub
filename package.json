@@ -8,7 +8,7 @@
     "build:production": "pnpm build",
     "start": "next start",
     "format": "prettier --write src",
-    "lint": "eslint src --ext .jsx,.js,.tsx,.ts  --no-error-on-unmatched-pattern --fix && stylelint --fix src/{,*/}*.{scss,css} --allow-empty-input",
+    "lint": "eslint src --ext .jsx,.js,.tsx,.ts  --no-error-on-unmatched-pattern --fix && stylelint --fix src/**/*.{scss,css} --allow-empty-input",
     "check": "pnpm run check:prettier && pnpm run check:eslint && pnpm run check:stylelint",
     "check:prettier": "prettier src --check",
     "check:eslint": "eslint src --ext .jsx,.js,.tsx,.ts --no-error-on-unmatched-pattern",
