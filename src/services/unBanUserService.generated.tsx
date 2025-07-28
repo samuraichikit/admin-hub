@@ -37,7 +37,6 @@ export type UnbanUserMutationFn = Apollo.MutationFunction<
  *   },
  * });
  */
-
 export function useUnbanUserMutation(
   baseOptions?: Apollo.MutationHookOptions<UnbanUserMutation, UnbanUserMutationVariables>
 ) {
