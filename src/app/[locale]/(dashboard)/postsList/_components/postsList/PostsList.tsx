@@ -1,5 +1,5 @@
 'use client'
-import { ChangeEvent, useEffect, useState } from 'react'
+import { ChangeEvent, useCallback, useEffect, useState } from 'react'
 
 import { SortByType } from '@/common/constants/types'
 import { useTranslation } from '@/common/hooks'
@@ -8,8 +8,8 @@ import { GET_POSTS } from '@/services/postsListService'
 import { GetPostsQuery } from '@/services/postsListService.generated'
 import { POSTS_SUBSCRIPTION } from '@/services/postsSubscriptionService'
 import { SortDirection } from '@/services/types'
-import { useQuery, useSubscription } from '@apollo/client'
-import { TextField, Typography } from '@samuraichikit/inc-ui-kit'
+import { useLazyQuery, useSubscription } from '@apollo/client'
+import { BanIcon, TextField, Typography } from '@samuraichikit/inc-ui-kit'
 import { formatDistanceToNow } from 'date-fns'
 
 import styles from './postList.module.scss'
@@ -18,29 +18,96 @@ export const PostsList = () => {
   const [posts, setPosts] = useState<GetPostsQuery['getPosts']['items']>([])
   const [searchTerm, setSearchTerm] = useState<string>('')
   const [expandedPosts, setExpandedPosts] = useState<{ [postId: number]: boolean }>({})
+  const [hasMore, setHasMore] = useState(true)
+  const [endCursorPostId, setEndCursorPostId] = useState(0)
+  const [isFetchingMore, setIsFetchingMore] = useState(false)
   const [debouncedSearchTerm, setDebouncedSearchTerm] = useState('')
   const { dateFnsLocale } = useTranslation()
+  const { data: subscriptionData } = useSubscription(POSTS_SUBSCRIPTION)
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     setSearchTerm(e.target.value.toLowerCase())
   }
-  const { data, loading, error } = useQuery<GetPostsQuery>(GET_POSTS, {
-    variables: {
-      pageSize: 20,
-      endCursorPostId: 0,
-      sortBy: SortByType.CreatedAt,
-      sortDirection: SortDirection.Desc,
-      searchTerm: debouncedSearchTerm,
-    },
+
+  const [fetchPosts, { loading, error, fetchMore }] = useLazyQuery<GetPostsQuery>(GET_POSTS, {
     fetchPolicy: 'network-only',
   })
 
-  const { data: subscriptionData } = useSubscription(POSTS_SUBSCRIPTION)
+  useEffect(() => {
+    setPosts([])
+    setHasMore(true)
+    setEndCursorPostId(0)
+
+    fetchPosts({
+      variables: {
+        pageSize: 20,
+        endCursorPostId: endCursorPostId,
+        sortBy: SortByType.CreatedAt,
+        sortDirection: SortDirection.Desc,
+        searchTerm: debouncedSearchTerm || '',
+      },
+    }).then(result => {
+      const fetchedItems = result.data?.getPosts?.items ?? []
+
+      setPosts(fetchedItems)
+
+      const lastPost = fetchedItems[fetchedItems.length - 1]
+
+      setEndCursorPostId(lastPost?.id ?? 0)
+    })
+  }, [debouncedSearchTerm])
+
+  const loadMorePosts = useCallback(async () => {
+    if (!hasMore || isFetchingMore) {
+      return
+    }
+
+    setIsFetchingMore(true)
+    const lastPostId = posts[posts.length - 1]?.id ?? 0
+
+    try {
+      const { data: moreData } = await fetchMore({
+        variables: {
+          pageSize: 20,
+          endCursorPostId: lastPostId,
+          sortBy: SortByType.CreatedAt,
+          sortDirection: SortDirection.Desc,
+          searchTerm: debouncedSearchTerm,
+        },
+      })
+
+      const newItems = moreData?.getPosts?.items ?? []
+
+      setPosts(prev => {
+        const existingIds = new Set(prev.map(p => p.id))
+        const uniqueNewItems = newItems.filter(p => !existingIds.has(p.id))
+
+        return [...prev, ...uniqueNewItems]
+      })
+
+      if (newItems.length > 0) {
+        setEndCursorPostId(newItems[newItems.length - 1].id)
+      }
+    } catch (err) {
+      console.error('Error loading more posts', err)
+    } finally {
+      setIsFetchingMore(false)
+    }
+  }, [hasMore, isFetchingMore, fetchMore, posts, debouncedSearchTerm])
 
   useEffect(() => {
-    if (data?.getPosts?.items) {
-      setPosts(data.getPosts.items)
+    const handleScroll = () => {
+      const nearBottom =
+        window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 300
+
+      if (nearBottom && !loading && hasMore && !isFetchingMore) {
+        loadMorePosts()
+      }
     }
-  }, [data])
+
+    window.addEventListener('scroll', handleScroll)
+
+    return () => window.removeEventListener('scroll', handleScroll)
+  }, [loading, hasMore, isFetchingMore, loadMorePosts])
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -104,6 +171,7 @@ export const PostsList = () => {
                       className={styles.avatar}
                     />
                     <Typography variant={'h3'}>{displayName}</Typography>
+                    {post.userBan && <BanIcon />}
                   </div>
                   <Typography className={styles.time} variant={'small_text'}>
                     {formatDistanceToNow(new Date(post.createdAt), {
