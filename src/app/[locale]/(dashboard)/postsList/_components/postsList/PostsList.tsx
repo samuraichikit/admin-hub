@@ -28,7 +28,7 @@ export const PostsList = () => {
     setSearchTerm(e.target.value.toLowerCase())
   }
 
-  const [fetchPosts, { data, loading, error, fetchMore }] = useLazyQuery<GetPostsQuery>(GET_POSTS, {
+  const [fetchPosts, { loading, error, fetchMore }] = useLazyQuery<GetPostsQuery>(GET_POSTS, {
     fetchPolicy: 'network-only',
   })
 
