@@ -30,6 +30,10 @@ export const GET_POSTS = gql(`
             url
           }
         }
+        userBan {
+          createdAt
+          reason
+        }
       }
       totalCount
       pagesCount

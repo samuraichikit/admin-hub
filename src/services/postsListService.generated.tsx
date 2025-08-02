@@ -32,6 +32,7 @@ export type GetPostsQuery = {
         lastName?: string | null
         avatars?: Array<{ __typename?: 'Avatar'; url?: string | null }> | null
       }
+      userBan?: { __typename?: 'UserBan'; createdAt: any; reason: string } | null
     }>
   }
 }
@@ -65,6 +66,10 @@ export const GetPostsDocument = gql`
           avatars {
             url
           }
+        }
+        userBan {
+          createdAt
+          reason
         }
       }
       totalCount
