@@ -1,5 +1,5 @@
 'use client'
-import { ChangeEvent, useCallback, useEffect, useRef, useState } from 'react'
+import { ChangeEvent, useCallback, useEffect, useState } from 'react'
 
 import { SortByType } from '@/common/constants/types'
 import { useTranslation } from '@/common/hooks'
@@ -9,7 +9,7 @@ import { GetPostsQuery } from '@/services/postsListService.generated'
 import { POSTS_SUBSCRIPTION } from '@/services/postsSubscriptionService'
 import { SortDirection } from '@/services/types'
 import { useLazyQuery, useSubscription } from '@apollo/client'
-import {BanIcon, TextField, Typography} from '@samuraichikit/inc-ui-kit'
+import { BanIcon, TextField, Typography } from '@samuraichikit/inc-ui-kit'
 import { formatDistanceToNow } from 'date-fns'
 
 import styles from './postList.module.scss'
@@ -40,7 +40,7 @@ export const PostsList = () => {
     fetchPosts({
       variables: {
         pageSize: 20,
-        endCursorPostId: 0,
+        endCursorPostId: endCursorPostId,
         sortBy: SortByType.CreatedAt,
         sortDirection: SortDirection.Desc,
         searchTerm: debouncedSearchTerm || '',
