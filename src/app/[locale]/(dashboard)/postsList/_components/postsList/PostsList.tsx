@@ -9,7 +9,7 @@ import { GetPostsQuery } from '@/services/postsListService.generated'
 import { POSTS_SUBSCRIPTION } from '@/services/postsSubscriptionService'
 import { SortDirection } from '@/services/types'
 import { useLazyQuery, useSubscription } from '@apollo/client'
-import { TextField, Typography} from '@samuraichikit/inc-ui-kit'
+import {BanIcon, TextField, Typography} from '@samuraichikit/inc-ui-kit'
 import { formatDistanceToNow } from 'date-fns'
 
 import styles from './postList.module.scss'
@@ -171,6 +171,7 @@ export const PostsList = () => {
                       className={styles.avatar}
                     />
                     <Typography variant={'h3'}>{displayName}</Typography>
+                    {post.userBan && <BanIcon />}
                   </div>
                   <Typography className={styles.time} variant={'small_text'}>
                     {formatDistanceToNow(new Date(post.createdAt), {
