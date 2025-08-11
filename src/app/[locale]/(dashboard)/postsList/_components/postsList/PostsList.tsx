@@ -7,8 +7,9 @@ import { ImagesSlider } from '@/components/ui/imagesSlider/ImagesSlider'
 import { GET_POSTS } from '@/services/postsListService'
 import { GetPostsQuery } from '@/services/postsListService.generated'
 import { POSTS_SUBSCRIPTION } from '@/services/postsSubscriptionService'
+import { OnPostAddedSubscription } from '@/services/postsSubscriptionService.generated'
 import { SortDirection } from '@/services/types'
-import { useLazyQuery, useSubscription } from '@apollo/client'
+import { useQuery } from '@apollo/client'
 import { BanIcon, TextField, Typography } from '@samuraichikit/inc-ui-kit'
 import { formatDistanceToNow } from 'date-fns'
 
@@ -19,42 +20,61 @@ export const PostsList = () => {
   const [searchTerm, setSearchTerm] = useState<string>('')
   const [expandedPosts, setExpandedPosts] = useState<{ [postId: number]: boolean }>({})
   const [hasMore, setHasMore] = useState(true)
-  const [endCursorPostId, setEndCursorPostId] = useState(0)
   const [isFetchingMore, setIsFetchingMore] = useState(false)
   const [debouncedSearchTerm, setDebouncedSearchTerm] = useState('')
   const { dateFnsLocale } = useTranslation()
-  const { data: subscriptionData } = useSubscription(POSTS_SUBSCRIPTION)
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     setSearchTerm(e.target.value.toLowerCase())
   }
 
-  const [fetchPosts, { loading, error, fetchMore }] = useLazyQuery<GetPostsQuery>(GET_POSTS, {
-    fetchPolicy: 'network-only',
+  const { data, loading, error, subscribeToMore, fetchMore } = useQuery<GetPostsQuery>(GET_POSTS, {
+    variables: {
+      pageSize: 20,
+      endCursorPostId: 0,
+      sortBy: SortByType.CreatedAt,
+      sortDirection: SortDirection.Desc,
+      searchTerm: debouncedSearchTerm || '',
+    },
   })
 
   useEffect(() => {
-    setPosts([])
-    setHasMore(true)
-    setEndCursorPostId(0)
+    if (data?.getPosts?.items) {
+      setPosts(data.getPosts.items)
+      setHasMore(data.getPosts.items.length === 20)
+    }
+  }, [data])
 
-    fetchPosts({
-      variables: {
-        pageSize: 20,
-        endCursorPostId: endCursorPostId,
-        sortBy: SortByType.CreatedAt,
-        sortDirection: SortDirection.Desc,
-        searchTerm: debouncedSearchTerm || '',
+  useEffect(() => {
+    if (!subscribeToMore) {
+      return
+    }
+
+    const unsubscribe = subscribeToMore<OnPostAddedSubscription>({
+      document: POSTS_SUBSCRIPTION,
+      updateQuery: (prev, { subscriptionData }) => {
+        if (!subscriptionData.data) {
+          return prev
+        }
+
+        const newPost = subscriptionData.data.postAdded
+
+        if (prev.getPosts.items.some(post => post.id === newPost.id)) {
+          return prev
+        }
+
+        return {
+          ...prev,
+          getPosts: {
+            ...prev.getPosts,
+            items: [newPost, ...prev.getPosts.items],
+            totalCount: prev.getPosts.totalCount + 1,
+          },
+        }
       },
-    }).then(result => {
-      const fetchedItems = result.data?.getPosts?.items ?? []
-
-      setPosts(fetchedItems)
-
-      const lastPost = fetchedItems[fetchedItems.length - 1]
-
-      setEndCursorPostId(lastPost?.id ?? 0)
     })
-  }, [debouncedSearchTerm])
+
+    return () => unsubscribe()
+  }, [subscribeToMore])
 
   const loadMorePosts = useCallback(async () => {
     if (!hasMore || isFetchingMore) {
@@ -84,9 +104,7 @@ export const PostsList = () => {
         return [...prev, ...uniqueNewItems]
       })
 
-      if (newItems.length > 0) {
-        setEndCursorPostId(newItems[newItems.length - 1].id)
-      }
+      setHasMore(moreData.getPosts.items.length === 19)
     } catch (err) {
       console.error('Error loading more posts', err)
     } finally {
@@ -118,12 +136,6 @@ export const PostsList = () => {
       clearTimeout(timer)
     }
   }, [searchTerm])
-
-  useEffect(() => {
-    if (subscriptionData?.postAdded) {
-      setPosts(prev => [subscriptionData.postAdded, ...prev])
-    }
-  }, [subscriptionData])
 
   if (loading) {
     return <p>Loading posts...</p>
