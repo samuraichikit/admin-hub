@@ -1,0 +1,58 @@
+import { useEffect, useState } from 'react'
+
+import { Column } from '@/components/ui/commonTableWithPagination'
+import { Follow } from '@/services/types'
+import { useGetUserLazyQuery } from '@/services/userService.generated'
+
+import { getBaseUrl } from '../utils'
+import { useTranslation } from './useTranslation'
+
+type Props = {
+  items: Follow[]
+}
+type FollowWithFullNames = ({ fullName: string } & Follow)[]
+export type FollowAccessors = Column<FollowWithFullNames[number]>['accessor']
+
+export const useFollow = ({ items }: Props) => {
+  const { t } = useTranslation()
+  const columns: Column<FollowWithFullNames[number]>[] = [
+    { accessor: 'userId', title: t.userPage.userId },
+    { accessor: 'fullName', title: t.userPage.userName },
+    {
+      accessor: 'userName',
+      href: row => `${getBaseUrl()}/profile/${row.userId}`,
+      isLink: true,
+      sortable: true,
+      title: t.userPage.profileLink,
+    },
+    { accessor: 'createdAt', sortable: true, title: t.userPage.subscriptionDate },
+  ]
+
+  const [getFullName, { loading: loadingGetFullName }] = useGetUserLazyQuery()
+  const [itemsWithFullNames, setItemsWithFullNames] = useState<FollowWithFullNames>([])
+
+  useEffect(() => {
+    const fetchFollowersFullNames = async () => {
+      if (!items || items.length === 0) {
+        return
+      }
+
+      const followersWithFullNames = await Promise.all(
+        items.map(async item => {
+          const { data } = await getFullName({ variables: { userId: item.id } })
+          const firstName = data?.getUser.profile.firstName ?? ''
+          const lastName = data?.getUser.profile.lastName ?? ''
+          const fullName = `${firstName} ${lastName}`
+
+          return { ...item, fullName }
+        })
+      )
+
+      setItemsWithFullNames(followersWithFullNames)
+    }
+
+    fetchFollowersFullNames()
+  }, [items, getFullName])
+
+  return { columns, itemsWithFullNames, loadingGetFullName }
+}
